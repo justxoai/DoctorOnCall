@@ -98,18 +98,12 @@ public class Dashboard extends AppCompatActivity {
             }
         });
 
-        // Move to Login Fragment
-        navigateToLoginFragment();
+        // Sidebar function
+        side_bar_function();
+    }
 
-
-
+    private void side_bar_function(){
 
     }
 
-    private void navigateToLoginFragment() {
-        Fragment loginFragment = new vn.edu.usth.intern.project.Login.LoginFragment();
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(android.R.id.content, loginFragment);
-        transaction.commit();
-    }
 }
