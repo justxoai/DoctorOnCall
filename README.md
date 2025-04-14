@@ -1,29 +1,37 @@
 # DoctorOnCall
 
-- Project: Online Doctor Booking and Consultation Mobile Application in a Hospital
+## 📱 Project Overview  
+**DoctorOnCall** is a mobile application developed for hospitals to facilitate online doctor booking and consultations.
 
-- Descript: 
-+ Application for a hospital
-+ Help patient can have appointment with doctor withough comming to hospital
-+ Design for elderly patients, patients have disability which hard to come to hospital,
-patients live too far, ...
+## 🩺 Description  
+DoctorOnCall enables patients to schedule and attend appointments with doctors without needing to physically visit the hospital.  
+The app is especially designed to support:
+- Elderly patients  
+- Patients with disabilities  
+- Individuals living far from the hospital  
 
-- Expected Outcome: 
-+ Role-Base: Doctor and Patient role
-+ Doctor Appointment: Doctor set appointment for Patient (f2f, online)
-+ Real-time Notification
+## 🎯 Features & Expected Outcomes
+- **Role-Based Access Control**  
+  - Separate roles for **Doctors** and **Patients**
+- **Doctor Appointment Management**  
+  - Doctors can schedule appointments (Face-to-Face or Online)
+- **Real-Time Notifications**  
+  - Updates and reminders for both doctors and patients
 
-- Technique:
-+ Use Native language
-+ Spring Boots
-+ Booking System
-+ PostgreSQL
+## 🛠️ Technologies Used
+- Native Mobile App Development  
+- Spring Boot (Backend)  
+- PostgreSQL (Database)  
+- Custom Booking System  
+- Firebase (Authentication)  
+- SIP Integration for online calls
 
-- Complete: 
-+ Role-base authentication using Firebase
-+ UI: Login, Schedule
-+ Connect SIP
+## ✅ Completed Features
+- Role-based authentication using Firebase  
+- Login and schedule UI implemented  
+- SIP connection setup for voice communication  
 
-- Task: 
-+ Task1: Set condition for password when signup and change password
-+ Task2: Re-do the logic of change password
+## 🔧 Tasks in Progress
+- **Task 1:** Implement password rules (complexity requirements) during sign-up and password changes  
+- **Task 2:** Refactor password change logic for better reliability and security  
+
