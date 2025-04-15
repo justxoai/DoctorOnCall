@@ -34,4 +34,5 @@ The app is especially designed to support:
 ## 🔧 Tasks in Progress
 - **Task 1:** Implement password rules (complexity requirements) during sign-up and password changes  
 - **Task 2:** Refactor password change logic for better reliability and security  
-
+- **Task 3:** Setup: When open a doctor -> Doctor profile, Setup Search and See All Doctor on Dashboard to connect to ListDoctor
+- **Task 4** Collect Image Doctor for frame, frame_doctor_list: Image Button -> Image View
