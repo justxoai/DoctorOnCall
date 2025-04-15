@@ -32,7 +32,11 @@ The app is especially designed to support:
 - SIP connection setup for voice communication  
 
 ## 🔧 Tasks in Progress
+For Logic:
 - **Task 1:** Implement password rules (complexity requirements) during sign-up and password changes  
-- **Task 2:** Refactor password change logic for better reliability and security  
-- **Task 3:** Setup: When open a doctor -> Doctor profile, Setup Search and See All Doctor on Dashboard to connect to ListDoctor
-- **Task 4** Collect Image Doctor for frame, frame_doctor_list: Image Button -> Image View
+- **Task 2:** Refactor password change logic for better reliability and security 
+For UI: 
+- **Task 3:** Setup: Draw Doctor Profile UI -> Patient Profile UI
+- **Task 4:** Setup UI for HealthCheck and Test Audio Call
+- **Task 5:** Setup Newsfeed RecyclerView
+For Backend:
