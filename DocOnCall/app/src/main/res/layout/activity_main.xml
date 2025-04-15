@@ -94,7 +94,7 @@
                         android:id="@+id/welcome_message"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Hi, User"
+                        android:text="Hi, Patient"
                         android:textColor="@color/white"
                         android:textSize="20sp"
                         android:gravity="center"
