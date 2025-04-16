@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.DocOnCall"
+        tools:targetApi="31">
+        <activity
+            android:name=".HealthCheck.Doctor.Doctor_HealthCheck_Activity"
+            android:exported="false" />
+        <activity
+            android:name=".HealthCheck.Patient.Patient_HealthCheck_Activity"
+            android:exported="false" />
+        <activity
+            android:name=".Profile.Patient.Patient_Profile_Activity"
+            android:exported="false" />
+        <activity
+            android:name=".Profile.Doctor.Doctor_Profile_Activity"
+            android:exported="false" />
+        <activity
+            android:name=".DoctorList.Doctor_Information_Activity"
+            android:exported="false" />
+        <activity
+            android:name=".Login.ChangePassword_Activity"
+            android:exported="false" />
+        <activity
+            android:name=".Login.SignUp_Activity"
+            android:exported="false" />
+        <activity
+            android:name=".Login.Login_Activity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".Schedule.Schedule_Activity"
+            android:exported="false" />
+        <activity
+            android:name=".Profile.Profile_Activity"
+            android:exported="false" />
+        <activity
+            android:name=".HealthCheck.HealthCheck_Activity"
+            android:exported="false" />
+        <activity
+            android:name=".DoctorList.List_Doctor_Activity"
+            android:exported="false" />
+        <activity
+            android:name=".Dashboard_Activity"
+            android:exported="false" />
+    </application>
+
+</manifest>
