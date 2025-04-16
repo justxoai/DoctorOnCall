@@ -29,14 +29,17 @@ The app is especially designed to support:
 ## ✅ Completed Features
 - Role-based authentication using Firebase  
 - Login and schedule UI implemented  
-- SIP connection setup for voice communication  
+- SIP connection setup for voice communication 
 
 ## 🔧 Tasks in Progress
 For Logic:
 - **Task 1:** Implement password rules (complexity requirements) during sign-up and password changes  
 - **Task 2:** Refactor password change logic for better reliability and security 
 For UI: 
-- **Task 3:** Setup: Draw Doctor Profile UI -> Patient Profile UI
-- **Task 4:** Setup UI for HealthCheck and Test Audio Call
-- **Task 5:** Setup Newsfeed RecyclerView
+- **Task 1:** Setup: Draw Doctor Profile UI: Name, Speci, Detail similar to Doctor Information -> Patient Profile UI: Basic Information( Name, Phone, DoB, Gender) and Survey to check medical history (?)
+- **Task 2:** Setup UI for HealthCheck: check note
+- **Task 3:** Setup Newsfeed RecyclerView
 For Backend:
+- **Task 1:** Setup Backend
+- **Task 2:** Setup Real-time Notification
+- **Task 3:** Setup Booking System
