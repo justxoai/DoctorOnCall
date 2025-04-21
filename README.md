@@ -40,7 +40,6 @@ The app is especially designed to support:
 - For UI: 
   - **Task 1:** Patient Medical Survey: Survey to check medical history (Use SharePreference): Based on Giấy khám sức khỏe
   - **Task 2:** Setup UI for HealthCheck: check note
-  - **Task 3:** Setup cmt, re-name file, textSize in Header(18-> 22)
   - **Task  :** Edit Profile Function (later)
   - **Task  :** Update UI in Schedule (later)
   - **Task  :** Update UI in Dashboard: with Doctor: HealthCheck and Schedule, with Patient: HealthCheck, ListDoctor, Newsfeed, Schedule
