@@ -13,28 +13,58 @@
         android:theme="@style/Theme.DocOnCall"
         tools:targetApi="31">
         <activity
-            android:name=".HealthCheck.Doctor.Doctor_HealthCheck_Activity"
+            android:name=".Patient.Dashboard.News_Recycler.Patient_Newsfeed"
             android:exported="false" />
         <activity
-            android:name=".HealthCheck.Patient.Patient_HealthCheck_Activity"
+            android:name=".Doctor.Dashboard.News_Recycler.Doctor_Newsfeed"
             android:exported="false" />
         <activity
-            android:name=".Profile.Patient.Patient_Profile_Activity"
+            android:name=".Patient.List_Doctor.Doctor_Information"
             android:exported="false" />
         <activity
-            android:name=".Profile.Doctor.Doctor_Profile_Activity"
+            android:name=".Patient.Schedule.Patient_Schedule"
             android:exported="false" />
         <activity
-            android:name=".DoctorList.Doctor_Information_Activity"
+            android:name=".Doctor.Schedule.Doctor_Schedule"
             android:exported="false" />
         <activity
-            android:name=".Login.ChangePassword_Activity"
+            android:name=".Patient.List_Doctor.Patient_List_Doctor"
             android:exported="false" />
         <activity
-            android:name=".Login.SignUp_Activity"
+            android:name=".Doctor.HealthCheck.Doctor_HealthCheck"
             android:exported="false" />
         <activity
-            android:name=".Login.Login_Activity"
+            android:name=".Patient.Dashboard.Patient_Dashboard"
+            android:exported="false" />
+        <activity
+            android:name=".Doctor.Dashboard.Doctor_Dashboard"
+            android:exported="false" />
+        <activity
+            android:name=".Patient.Profile.MedicalHistorySurvey_Activity"
+            android:exported="false" />
+        <activity
+            android:name=".Patient.Profile.Edit_Patient_Profile"
+            android:exported="false" />
+        <activity
+            android:name=".Doctor.Profile.Edit_Doctor_Profile"
+            android:exported="false" />
+        <activity
+            android:name=".Patient.HealthCheck.Patient_HealthCheck"
+            android:exported="false" />
+        <activity
+            android:name=".Patient.Profile.Patient_Profile"
+            android:exported="false" />
+        <activity
+            android:name=".Doctor.Profile.Doctor_Profile"
+            android:exported="false" />
+        <activity
+            android:name=".Auth.ChangePassword_Activity"
+            android:exported="false" />
+        <activity
+            android:name=".Auth.SignUp_Activity"
+            android:exported="false" />
+        <activity
+            android:name=".Auth.Login_Activity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -42,21 +72,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".Schedule.Schedule_Activity"
-            android:exported="false" />
-        <activity
-            android:name=".Profile.Profile_Activity"
-            android:exported="false" />
-        <activity
-            android:name=".HealthCheck.HealthCheck_Activity"
-            android:exported="false" />
-        <activity
-            android:name=".DoctorList.List_Doctor_Activity"
-            android:exported="false" />
-        <activity
-            android:name=".Dashboard_Activity"
-            android:exported="false" />
+
     </application>
 
 </manifest>

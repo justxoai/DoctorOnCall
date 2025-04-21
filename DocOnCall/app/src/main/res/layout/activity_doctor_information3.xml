@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    tools:context=".Patient.List_Doctor.Doctor_Information">
+
+    <!-- Doctor Profile -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/header_color">
+
+        <ImageButton
+            android:id="@+id/back_button"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="20dp"
+            android:background="@drawable/backward"
+            android:backgroundTint="@color/white"/>
+
+        <TextView
+            android:id="@+id/doctor_name_header_information"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:gravity="center"
+            android:text="Information"
+            android:textColor="@color/white"
+            android:textSize="23sp"
+            android:textStyle="bold"/>
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <!-- Information -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_margin="10dp">
+
+                <ImageView
+                    android:id="@+id/doctor_image_information"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_margin="30dp"
+                    android:scaleType="centerCrop"
+                    android:adjustViewBounds="true"
+                    android:background="@drawable/round_doctor_list"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="30dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/doctor_name_information"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Doctor Name"
+                        android:textSize="20sp"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:padding="5dp"/>
+
+                    <TextView
+                        android:id="@+id/doctor_specialization_information"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Doctor Specialization"
+                        android:textSize="18sp"
+                        android:textColor="@color/black"
+                        android:padding="5dp"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageButton
+                            android:layout_width="15dp"
+                            android:layout_height="15dp"
+                            android:layout_gravity="center_vertical"
+                            android:background="@drawable/vote_star"
+                            android:backgroundTint="#FF9830" />
+
+                        <TextView
+                            android:id="@+id/doctor_rating_information"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:text="5.0"
+                            android:layout_marginLeft="5dp"
+                            android:textColor="@color/black"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!-- Year Experience -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Year Experience:"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
+                    android:textColor="@color/black"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="4dp"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="12dp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="- Director of E Hospital\n- Head of Cardiothoracic Surgery Department - Cardiovascular Center of E Hospital\n- Head of the Department of Cardiothoracic Surgery - University of Medicine and Pharmacy - Vietnam National University, Hanoi"
+                    android:textSize="16sp"
+                    android:padding="12dp"
+                    android:textColor="@color/black"/>
+
+            </LinearLayout>
+
+            <!-- Work process -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Work Process:"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
+                    android:textColor="@color/black"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="4dp"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="12dp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="- 2015 - 2020:\nDepartment of Cardiothoracic Surgery, Viet Duc Hospital.\nCardiothoracic Surgeon.\n\n- 2020 - Present:\nCardiology Department, E Hospital.\nHead of Cardiovascular Surgery Unit."
+                    android:textSize="16sp"
+                    android:padding="12dp"
+                    android:textColor="@color/black"/>
+
+            </LinearLayout>
+
+            <!-- Chatting / Call / Video Buttons Section -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:weightSum="3">
+
+                <!-- Contact Button -->
+                <Button
+                    android:id="@+id/button_Contact"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Contact"
+                    android:padding="12dp"
+                    android:backgroundTint="@color/black"
+                    android:textColor="@color/white"
+                    android:gravity="center"/>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>
