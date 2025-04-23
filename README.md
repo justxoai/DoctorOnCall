@@ -35,14 +35,17 @@ The app is especially designed to support:
 - For Logic:
   - **Task 1:** Implement password rules (complexity requirements) during sign-up and password changes  
   - **Task 2:** Refactor password change logic for better reliability and security 
-  - **Task 3:** Search in Doctor List based on their Specilization
+  - **Task 3:** Confirm -> Notification/Toast about complete then back to Dashboard
+  - **Task 4:** Checkbox in Appointment Select
 
 - For UI: 
   - **Task 1:** Patient Medical Survey: Survey to check medical history (Use SharePreference): Based on Giấy khám sức khỏe
   - **Task 2:** Setup UI for HealthCheck: check note
+  - **Task 3:** Bug UI in HealthCheck of Patient => Fragment using Drawlayout
+  - **Task 4:** Update UI in Schedule: Patient UI: 
+  - **Task 5:** Update SearchView in Patient List Doctor can find Specilization
   - **Task  :** Edit Profile Function (later)
-  - **Task  :** Update UI in Schedule (later)
-  - **Task  :** Update UI in Dashboard: with Doctor: HealthCheck and Schedule, with Patient: HealthCheck, ListDoctor, Newsfeed, Schedule
+  - **Task  :** Update UI in Dashboard: with Doctor: HealthCheck and Schedule, with Patient: HealthCheck, ListDoctor, Schedule
 
 - For Backend:
   - **Task 1:** Setup Backend
