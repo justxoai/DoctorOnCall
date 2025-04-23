@@ -28,16 +28,6 @@
                 android:background="@drawable/side_navigator"
                 android:backgroundTint="@color/white"/>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_centerInParent="true"
-                android:gravity="center"
-                android:text="Health Check"
-                android:textColor="@color/white"
-                android:textSize="23sp"
-                android:textStyle="bold"/>
-
         </RelativeLayout>
 
     </RelativeLayout>

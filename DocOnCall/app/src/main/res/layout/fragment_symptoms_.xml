@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:id="@+id/symptoms_fragment"
+    android:background="@color/white"
+    tools:context=".Patient.HealthCheck.Fragment.Symptoms_Fragment">
 
     <!-- Header -->
     <RelativeLayout
@@ -14,13 +16,13 @@
         android:padding="8dp">
 
         <ImageButton
-            android:id="@+id/menu_button"
+            android:id="@+id/back_button"
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
             android:layout_marginStart="20dp"
-            android:background="@drawable/side_navigator"
+            android:background="@drawable/backward"
             android:backgroundTint="@color/white" />
 
         <TextView
@@ -85,11 +87,11 @@
                 android:textColor="@color/white" />
 
             <Button
-                android:id="@+id/btn_save"
+                android:id="@+id/btn_continue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/black"
-                android:text="Save"
+                android:text="Continue"
                 android:textColor="@color/white" />
         </LinearLayout>
 

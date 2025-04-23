@@ -1,13 +1,14 @@
-package vn.edu.usth.doconcall.Patient.List_Doctor.RecyclerView;
+package vn.edu.usth.doconcall.Patient.HealthCheck.SelectDoctor;
 
-public class Doctor_Items {
+public class Select_Doctor_Items {
+
     String name;
     String specialization;
     String rating;
 
     int doctor_image;
 
-    public Doctor_Items(String name, String specialization, String rating, int doctor_image) {
+    public Select_Doctor_Items(String name, String specialization, String rating, int doctor_image) {
         this.name = name;
         this.specialization = specialization;
         this.rating = rating;

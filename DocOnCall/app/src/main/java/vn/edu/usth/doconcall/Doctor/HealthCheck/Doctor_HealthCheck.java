@@ -3,9 +3,12 @@ package vn.edu.usth.doconcall.Doctor.HealthCheck;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -22,6 +25,20 @@ public class Doctor_HealthCheck extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_doctor_health_check);
+
+        // Side navigate
+        DrawerLayout mDrawLayout = findViewById(R.id.doctor_health_check_activity);
+
+        // Function to open Side-menu
+        ImageButton mImageView = findViewById(R.id.menu_button);
+        mImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (mDrawLayout != null && !mDrawLayout.isDrawerOpen(GravityCompat.END)) {
+                    mDrawLayout.openDrawer(GravityCompat.START);
+                }
+            }
+        });
 
         // Sidebar Function
         side_bar_function();

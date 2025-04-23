@@ -35,27 +35,8 @@ public class Patient_Dashboard_Fragment extends Fragment {
         // Setup Doctor RecyclerView
         doctor_recycler_view(v);
 
-        // Setup Newsfeed RecyclerView
-//        news_feed_recycler_view(v);
-
         return v;
     }
-
-//    private void news_feed_recycler_view(View v) {
-//        RecyclerView feed_recycler = v.findViewById(R.id.recycler_view_news_feed);
-//
-//        List<Newsfeed_Item> items = new ArrayList<Newsfeed_Item>();
-//        List<Newsfeed_Item> filter_items = new ArrayList<Newsfeed_Item>();
-//
-//        items.add(new Newsfeed_Item("Specialist: Dr. Emily Tran", "Cardiology Department - Heart Disease & Hypertension", R.drawable.doctor_image_1));
-//        items.add(new Newsfeed_Item("Consultant: Dr. Liam O'Connor", "Neurology Unit - Stroke, Epilepsy & Nervous System Disorders", R.drawable.doctor_image_1));
-//
-//        filter_items.addAll(items);
-//
-//        Newsfeed_Adapter adapter = new Newsfeed_Adapter(requireContext(),filter_items);
-//        feed_recycler.setLayoutManager(new LinearLayoutManager(requireContext()));
-//        feed_recycler.setAdapter(adapter);
-//    }
 
     private void doctor_recycler_view(View v) {
         RecyclerView doctor_recycler = v.findViewById(R.id.recycler_view_doctor_dashboard);

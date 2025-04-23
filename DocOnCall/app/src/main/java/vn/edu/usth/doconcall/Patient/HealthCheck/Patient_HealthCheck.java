@@ -3,14 +3,22 @@ package vn.edu.usth.doconcall.Patient.HealthCheck;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.google.firebase.auth.FirebaseAuth;
 
 import vn.edu.usth.doconcall.Auth.Login_Activity;
 import vn.edu.usth.doconcall.Patient.Dashboard.Patient_Dashboard;
+import vn.edu.usth.doconcall.Patient.HealthCheck.Fragment.HealthCheck_Fragment;
+import vn.edu.usth.doconcall.Patient.HealthCheck.Fragment.Symptoms_Fragment;
 import vn.edu.usth.doconcall.Patient.List_Doctor.Patient_List_Doctor;
 import vn.edu.usth.doconcall.Patient.Profile.Patient_Profile;
 import vn.edu.usth.doconcall.Patient.Schedule.Patient_Schedule;
@@ -25,11 +33,37 @@ public class Patient_HealthCheck extends AppCompatActivity {
         // Layout
         setContentView(R.layout.activity_patient_health_check);
 
+        // Side navigate
+        DrawerLayout mDrawLayout = findViewById(R.id.patient_health_check_activity);
+
+        // Function to open Side-menu
+        ImageButton mImageView = findViewById(R.id.menu_button);
+        mImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (mDrawLayout != null && !mDrawLayout.isDrawerOpen(GravityCompat.END)) {
+                    mDrawLayout.openDrawer(GravityCompat.START);
+                }
+            }
+        });
+
         // Sidebar Function
         side_bar_function();
+
+        // Health Check Function
+        health_check_function();
     }
 
-    private void side_bar_function(){
+    private void health_check_function() {
+        Fragment health_check_fragment = new HealthCheck_Fragment();
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(android.R.id.content, health_check_fragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+
+    }
+
+    private void side_bar_function() {
         // Dashboard
         LinearLayout dashboard_page = findViewById(R.id.to_dashboard_page);
         dashboard_page.setOnClickListener(new View.OnClickListener() {
