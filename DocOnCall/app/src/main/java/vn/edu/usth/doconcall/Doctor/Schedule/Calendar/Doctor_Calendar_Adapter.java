@@ -13,12 +13,12 @@ import java.util.ArrayList;
 
 import vn.edu.usth.doconcall.R;
 
-public class Calendar_Adapter extends RecyclerView.Adapter<Calendar_ViewHolder> {
+public class Doctor_Calendar_Adapter extends RecyclerView.Adapter<Doctor_Calendar_ViewHolder> {
 
     private final ArrayList<LocalDate> days;
     private final OnItemListener onItemListener;
 
-    public Calendar_Adapter(ArrayList<LocalDate> days, OnItemListener onItemListener)
+    public Doctor_Calendar_Adapter(ArrayList<LocalDate> days, OnItemListener onItemListener)
     {
         this.days = days;
         this.onItemListener = onItemListener;
@@ -26,7 +26,7 @@ public class Calendar_Adapter extends RecyclerView.Adapter<Calendar_ViewHolder> 
 
     @NonNull
     @Override
-    public Calendar_ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
+    public Doctor_Calendar_ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
     {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View view = inflater.inflate(R.layout.frame_monthly, parent, false);
@@ -37,20 +37,20 @@ public class Calendar_Adapter extends RecyclerView.Adapter<Calendar_ViewHolder> 
         else // week view
             layoutParams.height = (int) parent.getHeight();
 
-        return new Calendar_ViewHolder(view, onItemListener, days);
+        return new Doctor_Calendar_ViewHolder(view, onItemListener, days);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull Calendar_ViewHolder holder, int position)
+    public void onBindViewHolder(@NonNull Doctor_Calendar_ViewHolder holder, int position)
     {
         final LocalDate date = days.get(position);
 
         holder.dayOfMonth.setText(String.valueOf(date.getDayOfMonth()));
 
-        if(date.equals(Calendar_Utils.selectedDate))
+        if(date.equals(Doctor_Calendar_Utils.selectedDate))
             holder.parentView.setBackgroundColor(Color.LTGRAY);
 
-        if(date.getMonth().equals(Calendar_Utils.selectedDate.getMonth()))
+        if(date.getMonth().equals(Doctor_Calendar_Utils.selectedDate.getMonth()))
             holder.dayOfMonth.setTextColor(Color.BLACK);
         else
             holder.dayOfMonth.setTextColor(Color.LTGRAY);

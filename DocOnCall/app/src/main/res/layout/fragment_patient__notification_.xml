@@ -35,95 +35,10 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <!-- Newsfeed -->
-                <LinearLayout
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/notification_recycler_view"
                     android:layout_width="match_parent"
-                    android:layout_height="100dp"
-                    android:orientation="horizontal"
-                    android:layout_margin="6dp"
-                    android:background="@drawable/rounded_bg">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        android:padding="10dp">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Notification 1"
-                            android:textColor="@color/black"/>
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Notification information"
-                            android:textColor="@color/black"/>
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-                <!-- Newsfeed -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="100dp"
-                    android:orientation="horizontal"
-                    android:layout_margin="6dp"
-                    android:background="@drawable/rounded_bg">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        android:padding="10dp">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Notification 1"
-                            android:textColor="@color/black"/>
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Notification information"
-                            android:textColor="@color/black"/>
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-                <!-- Newsfeed -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="100dp"
-                    android:orientation="horizontal"
-                    android:layout_margin="6dp"
-                    android:background="@drawable/rounded_bg">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        android:padding="10dp">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Notification 1"
-                            android:textColor="@color/black"/>
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Notification information"
-                            android:textColor="@color/black"/>
-
-                    </LinearLayout>
-
-                </LinearLayout>
+                    android:layout_height="match_parent"/>
 
             </LinearLayout>
 

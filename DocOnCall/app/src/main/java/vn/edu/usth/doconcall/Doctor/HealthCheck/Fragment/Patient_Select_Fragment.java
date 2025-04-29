@@ -1,4 +1,4 @@
-package vn.edu.usth.doconcall.Patient.HealthCheck.Fragment;
+package vn.edu.usth.doconcall.Doctor.HealthCheck.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,35 +6,39 @@ import android.os.Bundle;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import vn.edu.usth.doconcall.Auth.Login_Activity;
-import vn.edu.usth.doconcall.Patient.Dashboard.Patient_Dashboard;
-import vn.edu.usth.doconcall.Patient.HealthCheck.Patient_HealthCheck;
-import vn.edu.usth.doconcall.Patient.List_Doctor.Patient_List_Doctor;
-import vn.edu.usth.doconcall.Patient.Profile.Patient_Profile;
-import vn.edu.usth.doconcall.Patient.Schedule.Patient_Schedule;
+import vn.edu.usth.doconcall.Doctor.Dashboard.Doctor_Dashboard;
+import vn.edu.usth.doconcall.Doctor.HealthCheck.Doctor_HealthCheck;
+import vn.edu.usth.doconcall.Doctor.HealthCheck.List_Patient.Patient_Adapter;
+import vn.edu.usth.doconcall.Doctor.HealthCheck.List_Patient.Patient_Item;
+import vn.edu.usth.doconcall.Doctor.Profile.Doctor_Profile;
+import vn.edu.usth.doconcall.Doctor.Schedule.Doctor_Schedule;
 import vn.edu.usth.doconcall.R;
 
-public class HealthCheck_Fragment extends Fragment {
+public class Patient_Select_Fragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Layout
-        View v = inflater.inflate(R.layout.fragment_health_check_, container, false);
+        View v =  inflater.inflate(R.layout.fragment_patient__select_, container, false);
 
         // Side navigate
-        DrawerLayout mDrawLayout = v.findViewById(R.id.health_check_fragment);
+        DrawerLayout mDrawLayout = v.findViewById(R.id.patient_select_fragment);
 
         // Function to open Side-menu
         ImageButton mImageView = v.findViewById(R.id.menu_button);
@@ -47,37 +51,45 @@ public class HealthCheck_Fragment extends Fragment {
             }
         });
 
-        // Side Bar Function
-        side_bar_function(v);
+        // List of Patient Recycler
+        list_patient_recycler_view(v);
 
-        // Health Check Fragment Function
-        health_check_function(v);
+        // Side bar function
+        side_bar_function(v);
 
         return v;
     }
 
-    private void health_check_function(View v) {
-        // Start Symptoms survey
-        Button start_survey = v.findViewById(R.id.start_health_check_button);
-        start_survey.setOnClickListener(view -> {
-            Fragment doctor_select = new Doctor_Select_Fragment();
-            FragmentTransaction fragmentTransaction = requireActivity().getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(android.R.id.content, doctor_select);
-            fragmentTransaction.addToBackStack(null);
-            fragmentTransaction.commit();
-        });
+    private void list_patient_recycler_view(View v) {
+        RecyclerView recyclerView = v.findViewById(R.id.list_patient_recycler_view);
 
+        List<Patient_Item> items = new ArrayList<Patient_Item>();
+
+        items.add(new Patient_Item("Alice Nguyen", "Female", "0901234567", "01/01/1990"));
+        items.add(new Patient_Item("Brian Tran", "Male", "0934567890", "12/05/1988"));
+        items.add(new Patient_Item("Catherine Le", "Female", "0967890123", "23/09/1992"));
+        items.add(new Patient_Item("Daniel Pham", "Male", "0971122334", "15/03/1985"));
+        items.add(new Patient_Item("Emma Vo", "Female", "0989988776", "30/06/1994"));
+        items.add(new Patient_Item("Frank Bui", "Male", "0912345678", "08/11/1987"));
+        items.add(new Patient_Item("Grace Hoang", "Female", "0945566778", "19/07/1991"));
+        items.add(new Patient_Item("Henry Do", "Male", "0956677889", "04/04/1989"));
+        items.add(new Patient_Item("Isabella Truong", "Female", "0933221144", "25/12/1993"));
+        items.add(new Patient_Item("Jack Nguyen", "Male", "0908765432", "17/02/1990"));
+
+
+        Patient_Adapter adapter = new Patient_Adapter(requireContext(), items);
+        recyclerView. setLayoutManager(new LinearLayoutManager(requireContext()));
+        recyclerView.setAdapter(adapter);
     }
 
-    private void side_bar_function(View v) {
+    private void side_bar_function(View v){
         // Dashboard
         LinearLayout dashboard_page = v.findViewById(R.id.to_dashboard_page);
         dashboard_page.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(requireContext(), Patient_Dashboard.class);
+                Intent i = new Intent(requireContext(), Doctor_Dashboard.class);
                 startActivity(i);
-
             }
         });
 
@@ -86,9 +98,8 @@ public class HealthCheck_Fragment extends Fragment {
         schedule_page.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(requireContext(), Patient_Schedule.class);
+                Intent i = new Intent(requireContext(), Doctor_Schedule.class);
                 startActivity(i);
-
             }
         });
 
@@ -97,20 +108,8 @@ public class HealthCheck_Fragment extends Fragment {
         health_page.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(requireContext(), Patient_HealthCheck.class);
+                Intent i = new Intent(requireContext(), Doctor_Schedule.class);
                 startActivity(i);
-
-            }
-        });
-
-        // List Doctor
-        LinearLayout doctor_page = v.findViewById(R.id.to_doctor_list_page);
-        doctor_page.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(requireContext(), Patient_List_Doctor.class);
-                startActivity(i);
-
             }
         });
 
@@ -119,9 +118,8 @@ public class HealthCheck_Fragment extends Fragment {
         profile_page.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(requireContext(), Patient_Profile.class);
+                Intent i = new Intent(requireContext(), Doctor_Profile.class);
                 startActivity(i);
-
             }
         });
 

@@ -1,4 +1,4 @@
-package vn.edu.usth.doconcall.Patient.Schedule.Calendar;
+package vn.edu.usth.doconcall.Doctor.Schedule.Calendar;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -7,7 +7,7 @@ import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
-public class Calendar_Utils {
+public class Doctor_Calendar_Utils {
     public static LocalDate selectedDate;
 
     public static String formattedDate(LocalDate date)
@@ -53,7 +53,7 @@ public class Calendar_Utils {
         YearMonth prevYearMonth = YearMonth.from(prevMonth);
         int prevDaysInMonth = prevYearMonth.lengthOfMonth();
 
-        LocalDate firstOfMonth = Calendar_Utils.selectedDate.withDayOfMonth(1);
+        LocalDate firstOfMonth = Doctor_Calendar_Utils.selectedDate.withDayOfMonth(1);
         int dayOfWeek = firstOfMonth.getDayOfWeek().getValue();
 
         for(int i = 1; i <= 42; i++)

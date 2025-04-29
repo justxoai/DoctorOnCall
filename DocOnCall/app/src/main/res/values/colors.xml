@@ -2,6 +2,7 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="dark_navy">#1A237E</color>
 
     <color name="header_color">#00BFFF</color>
     <color name="bottom_nav_color">#F5F5F5</color>

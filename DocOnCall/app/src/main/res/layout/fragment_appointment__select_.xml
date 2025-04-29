@@ -200,12 +200,11 @@
 
                 <!-- Horizontal RecyclerView -->
                 <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/free_time_recycler_view"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:layout_marginLeft="10dp"
-                    android:layout_marginTop="8dp"
                     android:layout_marginRight="10dp"
-                    android:clipToPadding="false"
                     android:orientation="horizontal"
                     android:scrollbars="none" />
 

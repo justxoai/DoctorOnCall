@@ -79,7 +79,7 @@ public class Patient_List_Doctor extends AppCompatActivity {
         items = new ArrayList<Doctor_Items>();
         filter_items = new ArrayList<Doctor_Items>();
 
-        items.add(new Doctor_Items("Dr. Emily Carter", "Cardiologist", "4.9",R.drawable.doctor_image_1));
+        items.add(new Doctor_Items("Dr. Emily Carter", "Cardiologist", "4.9", R.drawable.doctor_image_1));
         items.add(new Doctor_Items("Dr. James Patel", "Neurologist", "4.8", R.drawable.doctor_image_1));
         items.add(new Doctor_Items("Dr. Olivia Nguyen", "Dermatologist", "4.7", R.drawable.doctor_image_1));
         items.add(new Doctor_Items("Dr. Michael Thompson", "Pediatrician", "4.6", R.drawable.doctor_image_1));
@@ -110,7 +110,7 @@ public class Patient_List_Doctor extends AppCompatActivity {
         });
     }
 
-    private void side_bar_function(){
+    private void side_bar_function() {
         LinearLayout dashboard_page = findViewById(R.id.to_dashboard_page);
         dashboard_page.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -176,7 +176,8 @@ public class Patient_List_Doctor extends AppCompatActivity {
     private void filterList(String text) {
         filter_items.clear();
         for (Doctor_Items item : items) {
-            if (item.getName().toLowerCase().contains(text.toLowerCase())) {
+            if (item.getName().toLowerCase().contains(text.toLowerCase()) ||
+                    item.getSpecialization().toLowerCase().contains(text.toLowerCase())) {
                 filter_items.add(item);
             }
         }
@@ -189,8 +190,8 @@ public class Patient_List_Doctor extends AppCompatActivity {
     }
 
     @Override
-    public void onBackPressed(){
+    public void onBackPressed() {
         super.onBackPressed();
     }
-    
+
 }

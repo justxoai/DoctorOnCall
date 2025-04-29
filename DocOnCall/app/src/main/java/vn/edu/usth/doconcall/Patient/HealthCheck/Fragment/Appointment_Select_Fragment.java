@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,10 +15,27 @@ import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import vn.edu.usth.doconcall.Patient.HealthCheck.Free_Appointment.Free_Appointment_Adapter;
+import vn.edu.usth.doconcall.Patient.HealthCheck.Free_Appointment.Free_Appointment_Items;
 
 import vn.edu.usth.doconcall.R;
 
 public class Appointment_Select_Fragment extends Fragment {
+
+    Free_Appointment_Adapter adapter;
+    Bundle bundle;
+
+    String selectedType = "";
+
+    CheckBox checkboxAudio, checkboxVideo, checkboxChat, checkboxFace2Face;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -25,13 +43,101 @@ public class Appointment_Select_Fragment extends Fragment {
         // Layout
         View v = inflater.inflate(R.layout.fragment_appointment__select_, container, false);
 
+        bundle = new Bundle();
+
+        checkboxAudio = v.findViewById(R.id.checkbox_audio);
+        checkboxVideo = v.findViewById(R.id.checkbox_video);
+        checkboxChat = v.findViewById(R.id.checkbox_chat);
+        checkboxFace2Face = v.findViewById(R.id.checkbox_face2face);
+
+        // Check box coditional:
+        checkboxAudio.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    checkboxVideo.setChecked(false);
+                    checkboxChat.setChecked(false);
+                    checkboxFace2Face.setChecked(false);
+                    selectedType = "Audio Call";
+                }
+            }
+        });
+
+        checkboxVideo.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    checkboxAudio.setChecked(false);
+                    checkboxChat.setChecked(false);
+                    checkboxFace2Face.setChecked(false);
+                    selectedType = "Video Call";
+                }
+            }
+        });
+
+        checkboxChat.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    checkboxAudio.setChecked(false);
+                    checkboxVideo.setChecked(false);
+                    checkboxFace2Face.setChecked(false);
+                    selectedType = "Chat";
+                }
+            }
+        });
+
+        checkboxFace2Face.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    checkboxAudio.setChecked(false);
+                    checkboxVideo.setChecked(false);
+                    checkboxChat.setChecked(false);
+                    selectedType = "Face to Face";
+                }
+            }
+        });
+
         // Set Doctor Information
         doctor_information_function(v);
 
         // Appointment Select Fragment Function
         appointment_select_function(v);
 
+        free_appointment_recycler_view(v);
+
         return v;
+    }
+
+    private void free_appointment_recycler_view(View v) {
+        RecyclerView recyclerView = v.findViewById(R.id.free_time_recycler_view);
+
+        // Sample data
+        List<Free_Appointment_Items> timeList;
+
+        timeList = new ArrayList<Free_Appointment_Items>();
+
+        timeList.add(new Free_Appointment_Items("09:00"));
+        timeList.add(new Free_Appointment_Items("10:00"));
+        timeList.add(new Free_Appointment_Items("11:00"));
+        timeList.add(new Free_Appointment_Items("13:00"));
+        timeList.add(new Free_Appointment_Items("14:00"));
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+
+        adapter = new Free_Appointment_Adapter(requireContext(), timeList);
+        recyclerView.setAdapter(adapter);
+
+        adapter.setOnItemClickListener(new Free_Appointment_Adapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(String selectedTime) {
+                Toast.makeText(getContext(), "Selected Time: " + selectedTime, Toast.LENGTH_SHORT).show();
+
+                bundle.putString("Appointment Time", selectedTime);
+            }
+        });
+
     }
 
     private void doctor_information_function(View v) {
@@ -63,44 +169,10 @@ public class Appointment_Select_Fragment extends Fragment {
         // Continue
         Button continue_button = v.findViewById(R.id.button_Contact);
         continue_button.setOnClickListener(view -> {
-            // Get selected checkbox
-            CheckBox checkboxAudio = v.findViewById(R.id.checkbox_audio);
-            CheckBox checkboxVideo = v.findViewById(R.id.checkbox_video);
-            CheckBox checkboxChat = v.findViewById(R.id.checkbox_chat);
-            CheckBox checkboxFace2Face = v.findViewById(R.id.checkbox_face2face);
 
-            // Set listener to ensure only one checkbox can be selected at a time
-            CompoundButton.OnCheckedChangeListener singleSelectListener = new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    if (isChecked) {
-                        // Uncheck all other checkboxes when one is checked
-                        if (buttonView != checkboxAudio) checkboxAudio.setChecked(false);
-                        if (buttonView != checkboxVideo) checkboxVideo.setChecked(false);
-                        if (buttonView != checkboxChat) checkboxChat.setChecked(false);
-                        if (buttonView != checkboxFace2Face) checkboxFace2Face.setChecked(false);
-                    }
-                }
-            };
-
-            // Set listeners for all checkboxes
-            checkboxAudio.setOnCheckedChangeListener(singleSelectListener);
-            checkboxVideo.setOnCheckedChangeListener(singleSelectListener);
-            checkboxChat.setOnCheckedChangeListener(singleSelectListener);
-            checkboxFace2Face.setOnCheckedChangeListener(singleSelectListener);
-
-            // String variable to hold the selected type
-            String selectedType = "";
-
-            // Check which checkbox is selected
-            if (checkboxAudio.isChecked()) {
-                selectedType = "Audio Call";
-            } else if (checkboxVideo.isChecked()) {
-                selectedType = "Video Call";
-            } else if (checkboxChat.isChecked()) {
-                selectedType = "Chatting";
-            } else if (checkboxFace2Face.isChecked()) {
-                selectedType = "Face to Face";
+            if (!(checkboxVideo.isChecked() || checkboxAudio.isChecked() || checkboxChat.isChecked() || checkboxFace2Face.isChecked())) {
+                Toast.makeText(requireContext(), "Please select Appointment Type", Toast.LENGTH_SHORT).show();
+                return;
             }
 
             // Get doctor name and specialization
@@ -111,7 +183,6 @@ public class Appointment_Select_Fragment extends Fragment {
             String specialization = specView.getText().toString();
 
             // Bundle the data
-            Bundle bundle = new Bundle();
             bundle.putString("Doctor Name", doctorName);
             bundle.putString("Specialization", specialization);
             bundle.putString("Appointment Type", selectedType);

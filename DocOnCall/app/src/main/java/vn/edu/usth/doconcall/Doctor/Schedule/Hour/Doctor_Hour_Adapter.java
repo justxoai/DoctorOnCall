@@ -14,13 +14,13 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import vn.edu.usth.doconcall.Doctor.Schedule.Calendar.Calendar_Utils;
-import vn.edu.usth.doconcall.Doctor.Schedule.Event.Event;
+import vn.edu.usth.doconcall.Doctor.Schedule.Calendar.Doctor_Calendar_Utils;
+import vn.edu.usth.doconcall.Doctor.Schedule.Event.Doctor_Event;
 import vn.edu.usth.doconcall.R;
 
-public class Hour_Adapter extends ArrayAdapter<HourEvent> {
+public class Doctor_Hour_Adapter extends ArrayAdapter<Doctor_HourEvent> {
 
-    public Hour_Adapter(@NonNull Context context, List<HourEvent> hourEvents)
+    public Doctor_Hour_Adapter(@NonNull Context context, List<Doctor_HourEvent> hourEvents)
     {
         super(context, 0, hourEvents);
     }
@@ -29,7 +29,7 @@ public class Hour_Adapter extends ArrayAdapter<HourEvent> {
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent)
     {
-        HourEvent event = getItem(position);
+        Doctor_HourEvent event = getItem(position);
 
         if (convertView == null)
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.frame_hour, parent, false);
@@ -43,10 +43,10 @@ public class Hour_Adapter extends ArrayAdapter<HourEvent> {
     private void setHour(View convertView, LocalTime time)
     {
         TextView timeTV = convertView.findViewById(R.id.timeTV);
-        timeTV.setText(Calendar_Utils.formattedShortTime(time));
+        timeTV.setText(Doctor_Calendar_Utils.formattedShortTime(time));
     }
 
-    private void setEvents(View convertView, ArrayList<Event> events)
+    private void setEvents(View convertView, ArrayList<Doctor_Event> events)
     {
         TextView event1 = convertView.findViewById(R.id.event1);
         TextView event2 = convertView.findViewById(R.id.event2);
@@ -87,7 +87,7 @@ public class Hour_Adapter extends ArrayAdapter<HourEvent> {
         }
     }
 
-    private void setEvent(TextView textView, Event event)
+    private void setEvent(TextView textView, Doctor_Event event)
     {
         textView.setText(event.getName());
         textView.setVisibility(View.VISIBLE);

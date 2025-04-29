@@ -1,5 +1,7 @@
 package vn.edu.usth.doconcall.Patient.Dashboard.Fragment;
 
+import static vn.edu.usth.doconcall.Doctor.Schedule.Calendar.Doctor_Calendar_Utils.monthYearFromDate;
+
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -10,11 +12,19 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import vn.edu.usth.doconcall.Doctor.Schedule.Calendar.Doctor_Calendar_Utils;
+import vn.edu.usth.doconcall.Doctor.Schedule.Event.Doctor_Event;
+import vn.edu.usth.doconcall.Doctor.Schedule.Event.Doctor_Event_Adapter;
+import vn.edu.usth.doconcall.Patient.HealthCheck.Patient_HealthCheck;
 import vn.edu.usth.doconcall.Patient.List_Doctor.Patient_List_Doctor;
 import vn.edu.usth.doconcall.Patient.List_Doctor.RecyclerView.Doctor_Adapter;
 import vn.edu.usth.doconcall.Patient.List_Doctor.RecyclerView.Doctor_Items;
@@ -35,7 +45,29 @@ public class Patient_Dashboard_Fragment extends Fragment {
         // Setup Doctor RecyclerView
         doctor_recycler_view(v);
 
+        // Setup Calendar
+        calendar_setup_function(v);
+
         return v;
+    }
+
+    private void calendar_setup_function(View v) {
+        // Get Locate Time
+        Doctor_Calendar_Utils.selectedDate = LocalDate.now();
+
+        // Month and year
+        TextView month_year = v.findViewById(R.id.monthYearTV_patient_dashboard);
+        month_year.setText(monthYearFromDate(Doctor_Calendar_Utils.selectedDate));
+
+        // Day and Month
+        TextView day = v.findViewById(R.id.dayOfWeekTV_patient_dashboard);
+        day.setText(Doctor_Calendar_Utils.monthDayFromDate(Doctor_Calendar_Utils.selectedDate));
+
+        // List Event
+        ListView event = v.findViewById(R.id.eventListView_patient_dashboard);
+        ArrayList<Doctor_Event> dailyEvents = Doctor_Event.eventsForDate(Doctor_Calendar_Utils.selectedDate);
+        Doctor_Event_Adapter eventAdapter = new Doctor_Event_Adapter(requireContext(), dailyEvents);
+        event.setAdapter(eventAdapter);
     }
 
     private void doctor_recycler_view(View v) {
@@ -51,27 +83,28 @@ public class Patient_Dashboard_Fragment extends Fragment {
 
         filter_items.addAll(items);
 
-        Doctor_Adapter adapter = new Doctor_Adapter(requireContext(),filter_items);
+        Doctor_Adapter adapter = new Doctor_Adapter(requireContext(), filter_items);
         doctor_recycler.setLayoutManager(new LinearLayoutManager(requireContext()));
         doctor_recycler.setAdapter(adapter);
 
     }
 
     private void dashboard_function(View v) {
-//        LinearLayout search_doctor = v.findViewById(R.id.search_view_dashboard);
-//        search_doctor.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent i = new Intent(requireContext(), List_Doctor_Activity.class);
-//                startActivity(i);
-//            }
-//        });
 
         RelativeLayout see_all_doctor = v.findViewById(R.id.see_all_doctor);
         see_all_doctor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(requireContext(), Patient_List_Doctor.class);
+                startActivity(i);
+            }
+        });
+
+        Button to_health_check = v.findViewById(R.id.health_check_patient_dashboard);
+        to_health_check.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(requireContext(), Patient_HealthCheck.class);
                 startActivity(i);
             }
         });

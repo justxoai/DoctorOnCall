@@ -4,15 +4,15 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
-public class Event {
+public class Doctor_Event {
 
-    public static ArrayList<Event> eventsList = new ArrayList<>();
+    public static ArrayList<Doctor_Event> eventsList = new ArrayList<>();
 
-    public static ArrayList<Event> eventsForDate(LocalDate date)
+    public static ArrayList<Doctor_Event> eventsForDate(LocalDate date)
     {
-        ArrayList<Event> events = new ArrayList<>();
+        ArrayList<Doctor_Event> events = new ArrayList<>();
 
-        for(Event event : eventsList)
+        for(Doctor_Event event : eventsList)
         {
             if(event.getDate().equals(date))
                 events.add(event);
@@ -21,11 +21,11 @@ public class Event {
         return events;
     }
 
-    public static ArrayList<Event> eventsForDateAndTime(LocalDate date, LocalTime time)
+    public static ArrayList<Doctor_Event> eventsForDateAndTime(LocalDate date, LocalTime time)
     {
-        ArrayList<Event> events = new ArrayList<>();
+        ArrayList<Doctor_Event> events = new ArrayList<>();
 
-        for(Event event : eventsList)
+        for(Doctor_Event event : eventsList)
         {
             int eventHour = event.time.getHour();
             int cellHour = time.getHour();
@@ -41,7 +41,7 @@ public class Event {
     private LocalDate date;
     private LocalTime time;
 
-    public Event(String name, LocalDate date, LocalTime time)
+    public Doctor_Event(String name, LocalDate date, LocalTime time)
     {
         this.name = name;
         this.date = date;

@@ -33,7 +33,9 @@ public class Doctor_Select_Fragment extends Fragment {
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_doctor__select_, container, false);
 
+        //
         setupRecyclerView(v);
+
         setupBackButton(v);
 
         return v;

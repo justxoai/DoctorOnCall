@@ -3,6 +3,7 @@ package vn.edu.usth.doconcall.Patient.Profile;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
@@ -44,6 +45,31 @@ public class Patient_Profile extends AppCompatActivity {
         // SideBar Function
         side_bar_function();
 
+        // Profile Function
+        profile_function();
+
+    }
+
+    private void profile_function() {
+        Button edit_profile = findViewById(R.id.edit_patient_profile);
+        edit_profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(Patient_Profile.this, Edit_Patient_Profile.class);
+                startActivity(i);
+                finish();
+            }
+        });
+
+        Button medical_history = findViewById(R.id.medical_history_patient_profile);
+        medical_history.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(Patient_Profile.this, MedicalHistorySurvey_Activity.class);
+                startActivity(i);
+                finish();
+            }
+        });
     }
 
     private void side_bar_function(){

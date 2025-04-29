@@ -2,23 +2,22 @@
 <androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/patient_select_fragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/white"
-    android:id="@+id/patient_profile_activity"
-    tools:context=".Patient.Profile.Patient_Profile">
+    tools:context=".Doctor.HealthCheck.Fragment.Patient_Select_Fragment">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <!-- Patient Profile -->
+        <!-- Header -->
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:background="@color/header_color">
+            android:background="@color/header_color"
+            android:padding="8dp">
 
             <ImageButton
                 android:id="@+id/menu_button"
@@ -32,145 +31,27 @@
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="match_parent"
                 android:gravity="center"
-                android:text="Profile"
-                android:textColor="@color/white"
+                android:text="List of Patient"
+                android:textColor="@android:color/white"
                 android:textSize="23sp"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
         </RelativeLayout>
 
-        <ScrollView
+        <!-- Body Content -->
+        <LinearLayout
+            android:id="@+id/body_layout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scrollbars="none">
+            android:layout_height="wrap_content">
 
-            <LinearLayout
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/list_patient_recycler_view"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_height="match_parent"/>
 
-                <!-- Information -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_margin="10dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginTop="20dp"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Name: Patient"
-                            android:textSize="20sp"
-                            android:textColor="@color/black"
-                            android:textStyle="bold"
-                            android:padding="5dp"/>
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Gender: Male"
-                            android:textSize="18sp"
-                            android:textColor="@color/black"
-                            android:padding="5dp"/>
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="DoB: 01/10/2004"
-                            android:textSize="18sp"
-                            android:textColor="@color/black"
-                            android:padding="5dp"/>
-
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Phone Number: 0971795481"
-                            android:textSize="18sp"
-                            android:textColor="@color/black"
-                            android:padding="5dp"/>
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-                <!-- Medical History -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Medical History:"
-                        android:textStyle="bold"
-                        android:textSize="20sp"
-                        android:textColor="@color/black"
-                        android:paddingTop="8dp"
-                        android:paddingBottom="4dp"
-                        android:paddingStart="12dp"
-                        android:paddingEnd="12dp"/>
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="- ADHD (Diagnosed in 2018)\n- Broken left leg (Accident - 2020)\n- Mild anxiety disorder"
-                        android:textSize="16sp"
-                        android:padding="12dp"/>
-
-                </LinearLayout>
-
-                <!-- Buttons Section -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="16dp"
-                    android:orientation="vertical"
-                    android:gravity="center"
-                    android:weightSum="3">
-
-                    <!-- Edit Button -->
-                    <Button
-                        android:id="@+id/edit_patient_profile"
-                        android:layout_width="200dp"
-                        android:layout_height="wrap_content"
-                        android:text="Edit Profile"
-                        android:padding="12dp"
-                        android:backgroundTint="@color/black"
-                        android:textColor="@color/white"
-                        android:gravity="center"
-                        />
-
-                    <!-- Survey Button -->
-                    <Button
-                        android:id="@+id/medical_history_patient_profile"
-                        android:layout_width="200dp"
-                        android:layout_height="wrap_content"
-                        android:text="Medical History"
-                        android:padding="12dp"
-                        android:backgroundTint="@color/black"
-                        android:textColor="@color/white"
-                        android:gravity="center"
-                        android:visibility="visible"/>
-
-                </LinearLayout>
-
-
-            </LinearLayout>
-
-        </ScrollView>
+        </LinearLayout>
 
     </LinearLayout>
 
@@ -216,7 +97,7 @@
                         android:id="@+id/welcome_message"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Hi, Patient"
+                        android:text="Hi, Doctor"
                         android:textColor="@color/white"
                         android:textSize="20sp"
                         android:gravity="center"
@@ -304,34 +185,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:text="HealthCheck"
-                            android:textColor="@color/black"
-                            android:textSize="20sp"
-                            android:gravity="center"/>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="@color/black"/>
-
-                    <LinearLayout
-                        android:id="@+id/to_doctor_list_page"
-                        android:layout_width="match_parent"
-                        android:layout_height="70dp"
-                        android:orientation="horizontal">
-
-                        <ImageView
-                            android:layout_width="25dp"
-                            android:layout_height="25dp"
-                            android:layout_gravity="center_vertical"
-                            android:src="@drawable/doctor_list"
-                            android:layout_marginLeft="25dp"/>
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:text="Consult Doctor"
                             android:textColor="@color/black"
                             android:textSize="20sp"
                             android:gravity="center"/>

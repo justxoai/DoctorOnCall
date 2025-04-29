@@ -5,6 +5,8 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,15 +35,18 @@ public class Confirm_Fragment extends Fragment {
             String doctorName = bundle.getString("Doctor Name");
             String specialization = bundle.getString("Specialization");
             String appointmentType = bundle.getString("Appointment Type");
+            String appointmentTime = bundle.getString("Appointment Time");
 
             // Set data to TextViews
             TextView doctorNameText = v.findViewById(R.id.doctor_name_text);
             TextView doctorSpecText = v.findViewById(R.id.doctor_spec_text);
             TextView appointmentTypeText = v.findViewById(R.id.checkbox_video);
+            TextView appointmentTimeText = v.findViewById(R.id.appointment_time_select);
 
             doctorNameText.setText(doctorName);
             doctorSpecText.setText(specialization);
             appointmentTypeText.setText(appointmentType);
+            appointmentTimeText.setText(appointmentTime);
         }
 
         // Confirm Fragment Function

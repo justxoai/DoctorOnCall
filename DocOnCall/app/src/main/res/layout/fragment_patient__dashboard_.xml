@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".Patient.Dashboard.Fragment.Patient_Dashboard_Fragment">
 
     <!-- Header -->
@@ -16,7 +16,7 @@
         android:text="Dashboard"
         android:textColor="@color/white"
         android:textSize="23sp"
-        android:textStyle="bold"/>
+        android:textStyle="bold" />
 
     <!-- Body -->
     <ScrollView
@@ -28,22 +28,22 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_margin="20dp">
+            android:layout_margin="20dp"
+            android:orientation="vertical">
 
             <!-- Hello Text -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:background="@color/white">
+                android:background="@color/white"
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Nice to see you again!"
                     android:textColor="#ACABAB"
-                    android:textSize="18sp"/>
+                    android:textSize="18sp" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -51,28 +51,96 @@
                     android:text="Have something to share with Doc?"
                     android:textColor="@color/black"
                     android:textSize="30sp"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
 
             </LinearLayout>
 
-            <!-- Search -->
+            <!-- Schedule -->
             <LinearLayout
-                android:id="@+id/search_view_dashboard"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:orientation="horizontal"
-                android:background="@color/white"
-                android:layout_marginTop="15dp">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="vertical">
 
-                <SearchView
-                    android:id="@+id/searchView"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:iconifiedByDefault="false"
-                    android:background="@drawable/edit_group_box"
-                    app:searchIcon="@drawable/search"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"/>
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/dayOfWeekTV_patient_dashboard"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="Day: xx"
+                        android:textColor="#000000"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:id="@+id/monthYearTV_patient_dashboard"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="MMMM/YYYY"
+                        android:textColor="@color/black"
+                        android:textSize="20sp" />
+
+                </LinearLayout>
+
+                <ListView
+                    android:id="@+id/eventListView_patient_dashboard"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="5" />
+
+
+            </LinearLayout>
+
+            <!-- Health Check Section -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="vertical">
+
+                <!-- Header -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Check your health?"
+                    android:textColor="@color/black"
+                    android:textSize="30sp"
+                    android:textStyle="bold" />
+
+                <!-- Last Check Info -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Last appoinment: None"
+                    android:textColor="#7A7A7A"
+                    android:textSize="18sp" />
+
+                <!-- Quick Actions -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:gravity="center"
+                    android:weightSum="2">
+
+                    <Button
+                        android:id="@+id/health_check_patient_dashboard"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:backgroundTint="@color/black"
+                        android:text="Book Appointment"
+                        android:textColor="@color/white" />
+
+                </LinearLayout>
 
             </LinearLayout>
 
@@ -80,33 +148,33 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginTop="20dp">
+                android:layout_marginTop="20dp"
+                android:orientation="vertical">
 
                 <RelativeLayout
                     android:id="@+id/see_all_doctor"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
                     android:background="@color/white"
-                    android:gravity="center">
+                    android:gravity="center"
+                    android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:gravity="start|center_vertical"
                         android:text="All Doctors"
                         android:textColor="@color/black"
                         android:textSize="18sp"
-                        android:textStyle="bold"
-                        android:gravity="start|center_vertical"/>
+                        android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:gravity="end|center_vertical"
                         android:text="See All"
                         android:textColor="#ACABAB"
-                        android:textSize="15sp"
-                        android:gravity="end|center_vertical"/>
+                        android:textSize="15sp" />
 
                 </RelativeLayout>
 
@@ -114,7 +182,7 @@
                     android:id="@+id/recycler_view_doctor_dashboard"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:nestedScrollingEnabled="false"/>
+                    android:nestedScrollingEnabled="false" />
 
             </LinearLayout>
 

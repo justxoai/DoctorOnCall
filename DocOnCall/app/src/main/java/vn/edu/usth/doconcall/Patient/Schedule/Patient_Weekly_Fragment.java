@@ -15,13 +15,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-import vn.edu.usth.doconcall.Patient.Schedule.Calendar.Calendar_Adapter;
-import vn.edu.usth.doconcall.Patient.Schedule.Calendar.Calendar_Utils;
-import vn.edu.usth.doconcall.Patient.Schedule.Event.Event;
-import vn.edu.usth.doconcall.Patient.Schedule.Event.Event_Adapter;
+import vn.edu.usth.doconcall.Patient.Schedule.Calendar.Patient_Calendar_Adapter;
+import vn.edu.usth.doconcall.Patient.Schedule.Calendar.Patient_Calendar_Utils;
+import vn.edu.usth.doconcall.Patient.Schedule.Event.Patient_Event;
+import vn.edu.usth.doconcall.Patient.Schedule.Event.Patient_Event_Adapter;
 import vn.edu.usth.doconcall.R;
 
-public class Patient_Weekly_Fragment extends Fragment implements Calendar_Adapter.OnItemListener {
+public class Patient_Weekly_Fragment extends Fragment implements Patient_Calendar_Adapter.OnItemListener {
 
     private TextView monthYearText;
     private RecyclerView calendarRecyclerView;
@@ -31,7 +31,7 @@ public class Patient_Weekly_Fragment extends Fragment implements Calendar_Adapte
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_weekly_, container, false);
+        View v = inflater.inflate(R.layout.fragment_patient_weekly_, container, false);
 
         initWidgets(v);
 
@@ -39,13 +39,13 @@ public class Patient_Weekly_Fragment extends Fragment implements Calendar_Adapte
 
         Button back_week_button = v.findViewById(R.id.back_week_button);
         back_week_button.setOnClickListener(view -> {
-            Calendar_Utils.selectedDate = Calendar_Utils.selectedDate.minusWeeks(1);
+            Patient_Calendar_Utils.selectedDate = Patient_Calendar_Utils.selectedDate.minusWeeks(1);
             setWeekView();
         });
 
         Button next_week_button = v.findViewById(R.id.next_week_button);
         next_week_button.setOnClickListener(view -> {
-            Calendar_Utils.selectedDate = Calendar_Utils.selectedDate.plusWeeks(1);
+            Patient_Calendar_Utils.selectedDate = Patient_Calendar_Utils.selectedDate.plusWeeks(1);
             setWeekView();
         });
 
@@ -61,10 +61,10 @@ public class Patient_Weekly_Fragment extends Fragment implements Calendar_Adapte
 
     private void setWeekView()
     {
-        monthYearText.setText(Calendar_Utils.monthYearFromDate(Calendar_Utils.selectedDate));
-        ArrayList<LocalDate> days = Calendar_Utils.daysInWeekArray(Calendar_Utils.selectedDate);
+        monthYearText.setText(Patient_Calendar_Utils.monthYearFromDate(Patient_Calendar_Utils.selectedDate));
+        ArrayList<LocalDate> days = Patient_Calendar_Utils.daysInWeekArray(Patient_Calendar_Utils.selectedDate);
 
-        Calendar_Adapter calendarAdapter = new Calendar_Adapter(days, this);
+        Patient_Calendar_Adapter calendarAdapter = new Patient_Calendar_Adapter(days, this);
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(requireContext(), 7);
         calendarRecyclerView.setLayoutManager(layoutManager);
         calendarRecyclerView.setAdapter(calendarAdapter);
@@ -74,7 +74,7 @@ public class Patient_Weekly_Fragment extends Fragment implements Calendar_Adapte
     @Override
     public void onItemClick(int position, LocalDate date)
     {
-        Calendar_Utils.selectedDate = date;
+        Patient_Calendar_Utils.selectedDate = date;
         setWeekView();
     }
 
@@ -87,8 +87,8 @@ public class Patient_Weekly_Fragment extends Fragment implements Calendar_Adapte
 
     private void setEventAdpater()
     {
-        ArrayList<Event> dailyEvents = Event.eventsForDate(Calendar_Utils.selectedDate);
-        Event_Adapter eventAdapter = new Event_Adapter(requireContext(), dailyEvents);
+        ArrayList<Patient_Event> dailyEvents = Patient_Event.eventsForDate(Patient_Calendar_Utils.selectedDate);
+        Patient_Event_Adapter eventAdapter = new Patient_Event_Adapter(requireContext(), dailyEvents);
         eventListView.setAdapter(eventAdapter);
     }
 

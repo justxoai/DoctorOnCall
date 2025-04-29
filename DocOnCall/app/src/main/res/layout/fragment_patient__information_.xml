@@ -3,9 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
     android:orientation="vertical"
-    tools:context=".Patient.HealthCheck.Fragment.Confirm_Fragment">
+    tools:context=".Doctor.HealthCheck.Fragment.Patient_Information_Fragment">
 
     <!-- Doctor Profile -->
     <RelativeLayout
@@ -28,7 +27,7 @@
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:gravity="center"
-            android:text="Appointment Information"
+            android:text="Patient Information"
             android:textColor="@color/white"
             android:textSize="23sp"
             android:textStyle="bold" />
@@ -38,6 +37,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/white"
         android:scrollbars="none">
 
         <LinearLayout
@@ -59,6 +59,7 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/patient_information_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="5dp"
@@ -68,6 +69,7 @@
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/patient_information_gender"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="5dp"
@@ -76,6 +78,7 @@
                         android:textSize="18sp" />
 
                     <TextView
+                        android:id="@+id/patient_information_dob"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="5dp"
@@ -83,8 +86,8 @@
                         android:textColor="@color/black"
                         android:textSize="18sp" />
 
-
                     <TextView
+                        android:id="@+id/patient_information_phone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="5dp"
@@ -96,67 +99,33 @@
 
             </LinearLayout>
 
-            <!-- Doctor -->
+            <!-- Medical History -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
                 android:layout_marginTop="5dp"
+                android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:orientation="vertical">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingStart="12dp"
-                    android:paddingTop="8dp"
-                    android:paddingEnd="12dp"
-                    android:paddingBottom="4dp"
-                    android:text="Doctor:"
-                    android:textColor="@color/black"
+                    android:text="Medical History:"
+                    android:textStyle="bold"
                     android:textSize="20sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/doctor_name_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="12dp"
-                    android:text="Doctor Name"
                     android:textColor="@color/black"
-                    android:textSize="16sp" />
-
-            </LinearLayout>
-
-            <!-- Work process -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginRight="20dp"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingStart="12dp"
                     android:paddingTop="8dp"
-                    android:paddingEnd="12dp"
                     android:paddingBottom="4dp"
-                    android:text="Specialization: "
-                    android:textColor="@color/black"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
+                    android:paddingStart="12dp"
+                    android:paddingEnd="12dp"/>
 
                 <TextView
-                    android:id="@+id/doctor_spec_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="12dp"
-                    android:text="Doctor Specialization"
-                    android:textColor="@color/black"
-                    android:textSize="16sp" />
+                    android:text="- ADHD (Diagnosed in 2018)\n- Broken left leg (Accident - 2020)\n- Mild anxiety disorder"
+                    android:textSize="16sp"
+                    android:padding="12dp"/>
 
             </LinearLayout>
 
@@ -243,7 +212,7 @@
                     android:backgroundTint="@color/black"
                     android:gravity="center"
                     android:padding="12dp"
-                    android:text="Confirm"
+                    android:text="Contact"
                     android:textColor="@color/white" />
 
             </LinearLayout>

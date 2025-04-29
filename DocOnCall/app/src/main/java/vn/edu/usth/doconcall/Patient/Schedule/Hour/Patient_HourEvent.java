@@ -3,14 +3,14 @@ package vn.edu.usth.doconcall.Patient.Schedule.Hour;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
-import vn.edu.usth.doconcall.Patient.Schedule.Event.Event;
+import vn.edu.usth.doconcall.Patient.Schedule.Event.Patient_Event;
 
-public class HourEvent {
+public class Patient_HourEvent {
 
     LocalTime time;
-    ArrayList<Event> events;
+    ArrayList<Patient_Event> events;
 
-    public HourEvent(LocalTime time, ArrayList<Event> events)
+    public Patient_HourEvent(LocalTime time, ArrayList<Patient_Event> events)
     {
         this.time = time;
         this.events = events;
@@ -26,12 +26,12 @@ public class HourEvent {
         this.time = time;
     }
 
-    public ArrayList<Event> getEvents()
+    public ArrayList<Patient_Event> getEvents()
     {
         return events;
     }
 
-    public void setEvents(ArrayList<Event> events)
+    public void setEvents(ArrayList<Patient_Event> events)
     {
         this.events = events;
     }

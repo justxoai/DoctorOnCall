@@ -1,4 +1,4 @@
-package vn.edu.usth.doconcall.Patient.Schedule.Event;
+package vn.edu.usth.doconcall.Doctor.Schedule.Event;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -12,12 +12,12 @@ import androidx.annotation.Nullable;
 
 import java.util.List;
 
-import vn.edu.usth.doconcall.Patient.Schedule.Calendar.Calendar_Utils;
+import vn.edu.usth.doconcall.Doctor.Schedule.Calendar.Doctor_Calendar_Utils;
 import vn.edu.usth.doconcall.R;
 
-public class Event_Adapter extends ArrayAdapter<Event> {
+public class Doctor_Event_Adapter extends ArrayAdapter<Doctor_Event> {
 
-    public Event_Adapter(@NonNull Context context, List<Event> events)
+    public Doctor_Event_Adapter(@NonNull Context context, List<Doctor_Event> events)
     {
         super(context, 0, events);
     }
@@ -26,14 +26,14 @@ public class Event_Adapter extends ArrayAdapter<Event> {
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent)
     {
-        Event event = getItem(position);
+        Doctor_Event event = getItem(position);
 
         if (convertView == null)
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.frame_event, parent, false);
 
         TextView eventCellTV = convertView.findViewById(R.id.eventCellTV);
 
-        String eventTitle = event.getName() +" "+ Calendar_Utils.formattedTime(event.getTime());
+        String eventTitle = event.getName() +" "+ Doctor_Calendar_Utils.formattedTime(event.getTime());
         eventCellTV.setText(eventTitle);
         return convertView;
     }
