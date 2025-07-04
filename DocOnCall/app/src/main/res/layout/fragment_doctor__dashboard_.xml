@@ -59,42 +59,40 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginTop="20dp">
+                android:layout_marginTop="20dp"
+                android:orientation="vertical">
 
-                <LinearLayout
+                <TextView
+                    android:id="@+id/monthYearTV_doctor_dashboard"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:text="Date"
+                    android:textColor="@color/black"
+                    android:textSize="20sp" />
+
+                <LinearLayout
+                    android:id="@+id/text_eventList"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:gravity="center"
+                    android:visibility="visible">
 
                     <TextView
-                        android:id="@+id/dayOfWeekTV_doctor_dashboard"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Day: xx"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         android:gravity="center"
-                        android:textColor="#000000"
-                        android:textSize="20sp" />
-
-                    <TextView
-                        android:id="@+id/monthYearTV_doctor_dashboard"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="MMMM/YYYY"
-                        android:gravity="center"
+                        android:text="No Appointment Today"
                         android:textColor="@color/black"
-                        android:textSize="20sp" />
-
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
                 </LinearLayout>
 
-                <ListView
-                    android:id="@+id/eventListView_dashboard"
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/eventRecyclerView_dashboard"
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="5" />
-
+                    android:layout_height="wrap_content"
+                    android:nestedScrollingEnabled="false"
+                    android:visibility="gone" />
 
             </LinearLayout>
 
@@ -117,7 +115,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="start|center_vertical"
-                        android:text="All Patients"
+                        android:text="Patients Queue"
                         android:textColor="@color/black"
                         android:textSize="18sp"
                         android:textStyle="bold" />
@@ -136,10 +134,10 @@
                     android:id="@+id/recycler_view_patient_dashboard"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="50dp"
                     android:nestedScrollingEnabled="false" />
 
             </LinearLayout>
-
 
         </LinearLayout>
 

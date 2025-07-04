@@ -1,7 +1,7 @@
 package vn.edu.usth.doconcall.Doctor.Schedule;
 
-import static vn.edu.usth.doconcall.Doctor.Schedule.Calendar.Doctor_Calendar_Utils.daysInMonthArray;
-import static vn.edu.usth.doconcall.Doctor.Schedule.Calendar.Doctor_Calendar_Utils.monthYearFromDate;
+import static vn.edu.usth.doconcall.Utils.Calendar_Utils.daysInMonthArray;
+import static vn.edu.usth.doconcall.Utils.Calendar_Utils.monthYearFromDate;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -18,14 +18,13 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 import vn.edu.usth.doconcall.Doctor.Schedule.Calendar.Doctor_Calendar_Adapter;
-import vn.edu.usth.doconcall.Doctor.Schedule.Calendar.Doctor_Calendar_Utils;
 import vn.edu.usth.doconcall.R;
+import vn.edu.usth.doconcall.Utils.Calendar_Utils;
 
 public class Doctor_Monthly_Fragment extends Fragment  implements  Doctor_Calendar_Adapter.OnItemListener{
 
     private TextView monthYearText;
     private RecyclerView calendarRecyclerView;
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -33,34 +32,20 @@ public class Doctor_Monthly_Fragment extends Fragment  implements  Doctor_Calend
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_doctor_monthly_, container, false);
 
-        initWidgets(v);
-        Doctor_Calendar_Utils.selectedDate = LocalDate.now();
+        calendarRecyclerView = v.findViewById(R.id.calendarRecyclerView);
+        monthYearText = v.findViewById(R.id.monthYearTV);
+
+        Calendar_Utils.selectedDate = LocalDate.now();
         setMonthView();
 
-        Button back_month_button = v.findViewById(R.id.back_month_button);
-        back_month_button.setOnClickListener(view -> {
-            Doctor_Calendar_Utils.selectedDate = Doctor_Calendar_Utils.selectedDate.minusMonths(1);
-            setMonthView();
-        });
-
-        Button next_month_button = v.findViewById(R.id.next_month_button);
-        next_month_button.setOnClickListener(view -> {
-            Doctor_Calendar_Utils.selectedDate = Doctor_Calendar_Utils.selectedDate.plusMonths(1);
-            setMonthView();
-        });
+        month_fragment_function(v);
 
         return v;
     }
 
-    private void initWidgets(View v)
-    {
-        calendarRecyclerView = v.findViewById(R.id.calendarRecyclerView);
-        monthYearText = v.findViewById(R.id.monthYearTV);
-    }
-
     private void setMonthView()
     {
-        monthYearText.setText(monthYearFromDate(Doctor_Calendar_Utils.selectedDate));
+        monthYearText.setText(monthYearFromDate(Calendar_Utils.selectedDate));
         ArrayList<LocalDate> daysInMonth = daysInMonthArray();
 
         Doctor_Calendar_Adapter calendarAdapter = new Doctor_Calendar_Adapter(daysInMonth, this);
@@ -75,9 +60,22 @@ public class Doctor_Monthly_Fragment extends Fragment  implements  Doctor_Calend
     {
         if(date != null)
         {
-            Doctor_Calendar_Utils.selectedDate = date;
+            Calendar_Utils.selectedDate = date;
             setMonthView();
         }
     }
 
+    private void month_fragment_function(View v) {
+        Button back_month_button = v.findViewById(R.id.back_month_button);
+        back_month_button.setOnClickListener(view -> {
+            Calendar_Utils.selectedDate = Calendar_Utils.selectedDate.minusMonths(1);
+            setMonthView();
+        });
+
+        Button next_month_button = v.findViewById(R.id.next_month_button);
+        next_month_button.setOnClickListener(view -> {
+            Calendar_Utils.selectedDate = Calendar_Utils.selectedDate.plusMonths(1);
+            setMonthView();
+        });
+    }
 }

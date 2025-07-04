@@ -1,11 +1,13 @@
 package vn.edu.usth.doconcall.Patient.HealthCheck.Fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.SearchView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
@@ -15,27 +17,39 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import vn.edu.usth.doconcall.Models.DoctorDto;
+import vn.edu.usth.doconcall.Network.DoctorAPI;
+import vn.edu.usth.doconcall.Network.RetrofitClient;
+import vn.edu.usth.doconcall.Network.SessionManager;
 import vn.edu.usth.doconcall.Patient.HealthCheck.SelectDoctor.Select_Doctor_Adapter;
 import vn.edu.usth.doconcall.Patient.HealthCheck.SelectDoctor.Select_Doctor_Items;
 import vn.edu.usth.doconcall.R;
 
 public class Doctor_Select_Fragment extends Fragment {
 
-    private List<Select_Doctor_Items> items;
     private List<Select_Doctor_Items> filteredItems;
     private Select_Doctor_Adapter adapter;
-
     private SearchView doctorSearch;
     private RecyclerView doctorRecycler;
+    private String selectedSpecialization = "";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_doctor__select_, container, false);
 
-        //
+        Bundle args = getArguments();
+        if (args != null) {
+            selectedSpecialization = args.getString("Doctor Specialization");
+        }
+
+        // Doctor RecyclerView Function
         setupRecyclerView(v);
 
+        // Button Function
         setupBackButton(v);
 
         return v;
@@ -47,24 +61,12 @@ public class Doctor_Select_Fragment extends Fragment {
 
         doctorRecycler = v.findViewById(R.id.recycler_view_doctor_fragment);
 
-        // Data
-        items = new ArrayList<>();
         filteredItems = new ArrayList<>();
 
-        items.add(new Select_Doctor_Items("Dr. Emily Carter", "Cardiologist", "4.9", R.drawable.doctor_image_1));
-        items.add(new Select_Doctor_Items("Dr. James Patel", "Neurologist", "4.8", R.drawable.doctor_image_1));
-        items.add(new Select_Doctor_Items("Dr. Olivia Nguyen", "Dermatologist", "4.7", R.drawable.doctor_image_1));
-        items.add(new Select_Doctor_Items("Dr. Michael Thompson", "Pediatrician", "4.6", R.drawable.doctor_image_1));
-        items.add(new Select_Doctor_Items("Dr. Sarah Lopez", "Orthopedic Surgeon", "4.9", R.drawable.doctor_image_1));
-        items.add(new Select_Doctor_Items("Dr. Daniel Kim", "Psychiatrist", "4.8", R.drawable.doctor_image_1));
-        items.add(new Select_Doctor_Items("Dr. Aisha Rahman", "Ophthalmologist", "4.5", R.drawable.doctor_image_1));
-        items.add(new Select_Doctor_Items("Dr. John Miller", "Gynecologist", "4.6", R.drawable.doctor_image_1));
-        items.add(new Select_Doctor_Items("Dr. Priya Sharma", "Oncologist", "4.9", R.drawable.doctor_image_1));
-        items.add(new Select_Doctor_Items("Dr. Robert Chen", "General Practitioner", "4.7", R.drawable.doctor_image_1));
-
-        filteredItems.addAll(items);
+        fetch_doctor_list(null);
 
         adapter = new Select_Doctor_Adapter(requireContext(), filteredItems);
+
         doctorRecycler.setLayoutManager(new LinearLayoutManager(requireContext()));
         doctorRecycler.setAdapter(adapter);
 
@@ -76,30 +78,51 @@ public class Doctor_Select_Fragment extends Fragment {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                filterList(newText);
+                fetch_doctor_list(newText);
                 return true;
             }
         });
     }
 
+    private void fetch_doctor_list(String query) {
+        SessionManager sessionManager = SessionManager.getInstance();
+
+        String token = sessionManager.getToken();
+
+        if (token != null && !token.isEmpty()) {
+            String authHeader = "Bearer " + token;
+
+            DoctorAPI doctorService = RetrofitClient.getInstance().create(DoctorAPI.class);
+            Call<List<DoctorDto>> call = doctorService.getAllDoctors(authHeader, query);
+            call.enqueue(new Callback<List<DoctorDto>>() {
+                @Override
+                public void onResponse(Call<List<DoctorDto>> call, Response<List<DoctorDto>> response) {
+                    if(response.isSuccessful() && response.body() != null){
+                        List<DoctorDto> doctors = response.body();
+                        filteredItems.clear();
+                        for (DoctorDto doctor : doctors) {
+                            if (selectedSpecialization == null || doctor.getSpecialization().equalsIgnoreCase(selectedSpecialization)) {
+                                filteredItems.add(new Select_Doctor_Items(doctor.getId(), doctor.getName(), doctor.getSpecialization(), R.drawable.profile));
+                            }
+                        }
+                        adapter.notifyDataSetChanged();
+                    } else {
+                        Log.e("DoctorSelectFragment", "No response");
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<List<DoctorDto>> call, Throwable t) {
+                    Log.e("DoctorSelectFragment", "Error: " + t.getMessage(), t);
+                }
+            });
+        } else {
+            Log.e("DoctorSelectFragment", "Missing Token");
+        }
+    }
+
     private void setupBackButton(View v) {
         ImageButton backButton = v.findViewById(R.id.back_button);
         backButton.setOnClickListener(view -> requireActivity().getSupportFragmentManager().popBackStack());
-    }
-
-    private void filterList(String text) {
-        filteredItems.clear();
-        for (Select_Doctor_Items item : items) {
-            if (item.getName().toLowerCase().contains(text.toLowerCase()) ||
-                    item.getSpecialization().toLowerCase().contains(text.toLowerCase())) {
-                filteredItems.add(item);
-            }
-        }
-
-        if (filteredItems.isEmpty()) {
-            Toast.makeText(requireContext(), "No results found", Toast.LENGTH_SHORT).show();
-        }
-
-        adapter.notifyDataSetChanged();
     }
 }

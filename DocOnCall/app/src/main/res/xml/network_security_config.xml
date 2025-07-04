@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <domain-config cleartextTrafficPermitted="true">
+        <!-- Home1 -->
+        <domain includeSubdomains="false">192.168.3.100</domain>
+        <!-- Home2 -->
+        <domain includeSubdomains="false">192.168.1.13</domain>
+        <!-- USTH -->
+        <domain includeSubdomains="false">10.10.13.141</domain>
+        <!-- Htecom -->
+        <domain includeSubdomains="false">192.168.0.108</domain>
+    </domain-config>
+</network-security-config>

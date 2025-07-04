@@ -2,6 +2,13 @@ package vn.edu.usth.doconcall.Doctor.HealthCheck.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -9,33 +16,42 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageButton;
-import android.widget.LinearLayout;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import com.google.firebase.auth.FirebaseAuth;
-
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-import vn.edu.usth.doconcall.Auth.Login_Activity;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import vn.edu.usth.doconcall.Doctor.Appointment.DoctorManageAppointment;
 import vn.edu.usth.doconcall.Doctor.Dashboard.Doctor_Dashboard;
-import vn.edu.usth.doconcall.Doctor.HealthCheck.Doctor_HealthCheck;
 import vn.edu.usth.doconcall.Doctor.HealthCheck.List_Patient.Patient_Adapter;
 import vn.edu.usth.doconcall.Doctor.HealthCheck.List_Patient.Patient_Item;
 import vn.edu.usth.doconcall.Doctor.Profile.Doctor_Profile;
 import vn.edu.usth.doconcall.Doctor.Schedule.Doctor_Schedule;
+import vn.edu.usth.doconcall.Models.ScheduleEventDto;
+import vn.edu.usth.doconcall.Models.UserDto;
+import vn.edu.usth.doconcall.Network.RetrofitClient;
+import vn.edu.usth.doconcall.Network.ScheduleEventAPI;
+import vn.edu.usth.doconcall.Network.SessionManager;
+import vn.edu.usth.doconcall.Network.UserAPI;
 import vn.edu.usth.doconcall.R;
+import vn.edu.usth.doconcall.Utils.LogoutUtils;
 
 public class Patient_Select_Fragment extends Fragment {
+
+    private RecyclerView recyclerView;
+    private List<Patient_Item> items;
+    private Patient_Adapter adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Layout
-        View v =  inflater.inflate(R.layout.fragment_patient__select_, container, false);
+        View v = inflater.inflate(R.layout.fragment_patient__select_, container, false);
 
         // Side navigate
         DrawerLayout mDrawLayout = v.findViewById(R.id.patient_select_fragment);
@@ -57,32 +73,153 @@ public class Patient_Select_Fragment extends Fragment {
         // Side bar function
         side_bar_function(v);
 
+        // Patient Select Fragment Function
+        patient_select_fragment_function(v);
+
+        // Fetch user information
+        fetch_user_information(v);
+
         return v;
     }
 
+    private void fetch_user_information(View v) {
+        SessionManager sessionManager = SessionManager.getInstance();
+
+        String token = sessionManager.getToken();
+        int userId = sessionManager.getUserId();
+
+        if (token != null && !token.isEmpty() && userId != -1) {
+            String authHeader = "Bearer " + token;
+
+            UserAPI userService = RetrofitClient.getInstance().create(UserAPI.class);
+            Call<UserDto> call = userService.getUserById(authHeader, userId);
+
+            call.enqueue(new Callback<UserDto>() {
+                @Override
+                public void onResponse(Call<UserDto> call, Response<UserDto> response) {
+                    if (response.isSuccessful() && response.body() != null) {
+                        UserDto user = response.body();
+                        setTextWelcome(user, v);
+                    } else {
+                        Log.e("PatientSelectSideBar", "Failed: " + response.code());
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<UserDto> call, Throwable t) {
+                    Log.e("PatientSelectSideBar", "Error: " + t.getMessage(), t);
+                }
+            });
+        } else {
+            Log.e("PatientSelectSideBar", "Missing token or userId");
+        }
+    }
+
+    private void setTextWelcome(UserDto user, View v) {
+        TextView text = v.findViewById(R.id.welcome_message);
+        text.setText("Hi, " + user.getName());
+    }
+
+    private void patient_select_fragment_function(View v) {
+        FloatingActionButton fab = v.findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(requireContext(), DoctorManageAppointment.class);
+                startActivity(i);
+            }
+        });
+    }
+
     private void list_patient_recycler_view(View v) {
-        RecyclerView recyclerView = v.findViewById(R.id.list_patient_recycler_view);
+        recyclerView = v.findViewById(R.id.list_patient_recycler_view);
 
-        List<Patient_Item> items = new ArrayList<Patient_Item>();
+        items = new ArrayList<Patient_Item>();
 
-        items.add(new Patient_Item("Alice Nguyen", "Female", "0901234567", "01/01/1990"));
-        items.add(new Patient_Item("Brian Tran", "Male", "0934567890", "12/05/1988"));
-        items.add(new Patient_Item("Catherine Le", "Female", "0967890123", "23/09/1992"));
-        items.add(new Patient_Item("Daniel Pham", "Male", "0971122334", "15/03/1985"));
-        items.add(new Patient_Item("Emma Vo", "Female", "0989988776", "30/06/1994"));
-        items.add(new Patient_Item("Frank Bui", "Male", "0912345678", "08/11/1987"));
-        items.add(new Patient_Item("Grace Hoang", "Female", "0945566778", "19/07/1991"));
-        items.add(new Patient_Item("Henry Do", "Male", "0956677889", "04/04/1989"));
-        items.add(new Patient_Item("Isabella Truong", "Female", "0933221144", "25/12/1993"));
-        items.add(new Patient_Item("Jack Nguyen", "Male", "0908765432", "17/02/1990"));
+        fetch_patient_select();
 
+        adapter = new Patient_Adapter(requireContext(), items);
 
-        Patient_Adapter adapter = new Patient_Adapter(requireContext(), items);
-        recyclerView. setLayoutManager(new LinearLayoutManager(requireContext()));
+        recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
         recyclerView.setAdapter(adapter);
     }
 
-    private void side_bar_function(View v){
+    private void fetch_patient_select() {
+        SessionManager sessionManager = SessionManager.getInstance();
+
+        String token = sessionManager.getToken();
+        int doctorId = sessionManager.getUserId();
+
+        if (token != null && !token.isEmpty() && doctorId != -1) {
+            String authHeader = "Bearer " + token;
+
+            ScheduleEventAPI scheduleEventService = RetrofitClient.getInstance().create(ScheduleEventAPI.class);
+            Call<List<ScheduleEventDto>> schdedule_call = scheduleEventService.getByDoctorId(authHeader, doctorId);
+            schdedule_call.enqueue(new Callback<List<ScheduleEventDto>>() {
+                @Override
+                public void onResponse(Call<List<ScheduleEventDto>> call, Response<List<ScheduleEventDto>> response) {
+                    if (response.isSuccessful() && response.body() != null) {
+
+                        List<ScheduleEventDto> scheduleEventDtos = response.body();
+
+                        if (scheduleEventDtos.isEmpty()){
+                            TextView no_patients_text = getView().findViewById(R.id.no_patients_text);
+                            no_patients_text.setVisibility(View.VISIBLE);
+
+                            recyclerView.setVisibility(View.GONE);
+                        } else {
+                            for (ScheduleEventDto scheduleEventDto : scheduleEventDtos) {
+                                int patientId = scheduleEventDto.getPatient_id();
+
+                                UserAPI userService = RetrofitClient.getInstance().create(UserAPI.class);
+                                Call<UserDto> user_call = userService.getUserById(authHeader, patientId);
+                                user_call.enqueue(new Callback<UserDto>() {
+                                    @Override
+                                    public void onResponse(Call<UserDto> call, Response<UserDto> response) {
+                                        if (response.isSuccessful() && response.body() != null) {
+                                            UserDto user_response = response.body();
+
+                                            String patient_gender;
+                                            if (user_response.getGender() == "MALE") {
+                                                patient_gender = "Male";
+                                            } else {
+                                                patient_gender = "Female";
+                                            }
+
+                                            items.add(new Patient_Item(patientId, user_response.getName(), patient_gender, formatDateString(user_response.getBirthday())));
+
+                                            adapter.notifyDataSetChanged();
+                                        } else {
+                                            Log.e("PatientSelectFragment-GetUser", "Missing response or body");
+                                        }
+                                    }
+                                    @Override
+                                    public void onFailure(Call<UserDto> call, Throwable t) {
+                                        Log.e("PatientSelectFragment-GetUser", "Error: " + t.getMessage(), t);
+                                    }
+                                });
+                            }
+
+                        }
+
+                    } else {
+                        Log.e("PatientSelectFragment", "Missing response or body");
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<List<ScheduleEventDto>> call, Throwable t) {
+                    Log.e("PatientSelectFragment", "Error: " + t.getMessage(), t);
+                }
+            });
+
+
+        } else {
+            Log.e("PatientSelectFragment", "Missing token or userId");
+        }
+    }
+
+    private void side_bar_function(View v) {
         // Dashboard
         LinearLayout dashboard_page = v.findViewById(R.id.to_dashboard_page);
         dashboard_page.setOnClickListener(new View.OnClickListener() {
@@ -113,6 +250,16 @@ public class Patient_Select_Fragment extends Fragment {
             }
         });
 
+        // Manage Appointment
+        LinearLayout manage_appointment = v.findViewById(R.id.to_manage_appointment_page);
+        manage_appointment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(requireContext(), DoctorManageAppointment.class);
+                startActivity(i);
+            }
+        });
+
         // Profile
         LinearLayout profile_page = v.findViewById(R.id.to_profile_page);
         profile_page.setOnClickListener(new View.OnClickListener() {
@@ -128,11 +275,16 @@ public class Patient_Select_Fragment extends Fragment {
         log_out.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FirebaseAuth.getInstance().signOut();
-                Intent i = new Intent(requireContext(), Login_Activity.class);
-                startActivity(i);
+                LogoutUtils.getInstance().logoutUser(requireContext());
             }
         });
+    }
+
+    private static String formatDateString(String date) {
+        LocalDate parsed = LocalDate.parse(date);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+        return parsed.format(formatter);
     }
 
 }

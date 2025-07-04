@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -24,6 +25,8 @@ public class ChangePassword_Activity extends AppCompatActivity {
 
     EditText phone_num, new_pass, confirm_pass;
     Button confirm_button;
+
+    TextView no_phone, no_new_password, no_confirm_password, match_password;
 
     boolean valid = true;
 
@@ -49,16 +52,15 @@ public class ChangePassword_Activity extends AppCompatActivity {
         confirm_button = findViewById(R.id.confirm_button);
 
         // Setup UI for Error
-        findViewById(R.id.empty_phone_change_pass).setVisibility(View.GONE);
-        findViewById(R.id.error_phone_change_pass).setVisibility(View.GONE);
+        no_phone = findViewById(R.id.error_no_phone_num);
+        no_new_password = findViewById(R.id.error_no_password);
+        no_confirm_password = findViewById(R.id.error_no_confirm_password);
+        match_password = findViewById(R.id.error_match_password);
 
-        findViewById(R.id.empty_password_change_pass).setVisibility(View.GONE);
-        findViewById(R.id.error_pass_change_pass).setVisibility(View.GONE);
-
-        findViewById(R.id.error_confirm_pass_change_pass).setVisibility(View.GONE);
-        findViewById(R.id.confirm_password_change_pass).setVisibility(View.GONE);
-
-        findViewById(R.id.confirm_password_change_pass_2).setVisibility(View.GONE);
+        no_phone.setVisibility(View.GONE);
+        no_new_password.setVisibility(View.GONE);
+        no_confirm_password.setVisibility(View.GONE);
+        match_password.setVisibility(View.GONE);
 
         // Change Password function
         change_password_function();
@@ -76,7 +78,8 @@ public class ChangePassword_Activity extends AppCompatActivity {
         confirm_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                checkField();
+                check_phone();
+                check_password();
 
                 if(valid){
                     fStore.collection("Patient").whereEqualTo("PhoneNumber", phone_num.getText().toString()).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
@@ -103,54 +106,45 @@ public class ChangePassword_Activity extends AppCompatActivity {
         });
     }
 
-    private boolean checkField(){
-        if(phone_num.getText().toString().isEmpty()){
-            findViewById(R.id.empty_phone_change_pass).setVisibility(View.VISIBLE);
-            findViewById(R.id.error_phone_change_pass).setVisibility(View.VISIBLE);
 
+    public boolean check_phone(){
+        if (phone_num.getText().toString().trim().isEmpty()) {
+            no_phone.setVisibility(View.VISIBLE);
             valid = false;
-        }else{
-            findViewById(R.id.empty_phone_change_pass).setVisibility(View.GONE);
-            findViewById(R.id.error_phone_change_pass).setVisibility(View.GONE);
-
+        } else {
+            no_phone.setVisibility(View.GONE);
             valid = true;
-        }
-
-        if(new_pass.getText().toString().isEmpty()){
-            findViewById(R.id.empty_password_change_pass).setVisibility(View.VISIBLE);
-            findViewById(R.id.error_pass_change_pass).setVisibility(View.VISIBLE);
-
-            valid = false;
-        }else{
-            findViewById(R.id.empty_password_change_pass).setVisibility(View.GONE);
-            findViewById(R.id.error_pass_change_pass).setVisibility(View.GONE);
-
-            valid = true;
-        }
-
-        // Dieu Kien cua Matkhau
-
-        if(confirm_pass.getText().toString().isEmpty()) {
-            findViewById(R.id.error_confirm_pass_change_pass).setVisibility(View.VISIBLE);
-            findViewById(R.id.confirm_password_change_pass).setVisibility(View.VISIBLE);
-
-            valid = false;
-        }else{
-            if(confirm_pass.getText().toString().equals(new_pass.getText().toString())){
-                findViewById(R.id.error_confirm_pass_change_pass).setVisibility(View.GONE);
-
-                valid = true;
-            }else{
-                findViewById(R.id.error_confirm_pass_change_pass).setVisibility(View.VISIBLE);
-                findViewById(R.id.confirm_password_change_pass_2).setVisibility(View.VISIBLE);
-                findViewById(R.id.confirm_password_change_pass).setVisibility(View.GONE);
-
-                valid = false;
-            }
         }
 
         return valid;
     }
+
+    public boolean check_password(){
+        if (new_pass.getText().toString().isEmpty()) {
+            no_new_password.setVisibility(View.VISIBLE);
+            valid = false;
+        } else {
+            no_new_password.setVisibility(View.GONE);
+            valid = true;
+        }
+
+        if (confirm_pass.getText().toString().isEmpty()) {
+            no_confirm_password.setVisibility(View.VISIBLE);
+
+            valid = false;
+        } else if (!confirm_pass.equals(new_pass)) {
+            no_confirm_password.setVisibility(View.GONE);
+            match_password.setVisibility(View.VISIBLE);
+            valid = false;
+        } else {
+            no_confirm_password.setVisibility(View.GONE);
+            match_password.setVisibility(View.GONE);
+            valid = true;
+        }
+
+        return valid;
+    }
+
 
 
 }

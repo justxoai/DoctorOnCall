@@ -7,70 +7,71 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
-
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import vn.edu.usth.doconcall.Doctor.Dashboard.Doctor_Dashboard;
+import vn.edu.usth.doconcall.Models.AuthResponse;
+import vn.edu.usth.doconcall.Models.AuthenticationRequest;
+import vn.edu.usth.doconcall.Network.AuthAPI;
+import vn.edu.usth.doconcall.Network.RetrofitClient;
+import vn.edu.usth.doconcall.Network.SessionManager;
 import vn.edu.usth.doconcall.Patient.Dashboard.Patient_Dashboard;
 import vn.edu.usth.doconcall.R;
 
 public class Login_Activity extends AppCompatActivity {
 
-    EditText phone_num, password;
-    Button login_button;
+    private EditText phone_num, password;
+    private Button login_button;
+    private TextView no_phone, no_password, no_user, wrong_password;
 
     boolean valid = true;
-
-    FirebaseAuth fAuth;
-    FirebaseFirestore fStore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        // Layout
         setContentView(R.layout.activity_login);
-
-        // Setup Firebase
-        fAuth = FirebaseAuth.getInstance();
-        fStore = FirebaseFirestore.getInstance();
 
         // Setup ID
         phone_num = findViewById(R.id.input_phone_num_log_in);
         password = findViewById(R.id.input_pass_log_in);
-
         login_button = findViewById(R.id.login_button);
 
         // Setup UI for Error
-        findViewById(R.id.loading_layout).setVisibility(View.VISIBLE);
-        findViewById(R.id.header_login).setVisibility(View.GONE);
-        findViewById(R.id.login_layout).setVisibility(View.GONE);
+        RelativeLayout loading_layout = findViewById(R.id.loading_layout);
+        loading_layout.setVisibility(View.VISIBLE);
 
-        findViewById(R.id.empty_phone_email).setVisibility(View.GONE);
-        findViewById(R.id.error_phone_log_in).setVisibility(View.GONE);
+        LinearLayout header_layout = findViewById(R.id.header_login);
+        header_layout.setVisibility(View.GONE);
 
-        findViewById(R.id.empty_password).setVisibility(View.GONE);
-        findViewById(R.id.error_pass_log_in).setVisibility(View.GONE);
+        LinearLayout login_layout = findViewById(R.id.login_layout);
+        login_layout.setVisibility(View.GONE);
+
+        no_phone = findViewById(R.id.error_no_phone);
+        no_user = findViewById(R.id.error_no_user);
+        no_password = findViewById(R.id.error_no_password);
+        wrong_password = findViewById(R.id.error_wrong_password);
+
+        no_phone.setVisibility(View.GONE);
+        no_user.setVisibility(View.GONE);
+        no_password.setVisibility(View.GONE);
+        wrong_password.setVisibility(View.GONE);
 
         // Setup Delay Loading
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                findViewById(R.id.loading_layout).setVisibility(View.GONE);
-                findViewById(R.id.header_login).setVisibility(View.VISIBLE);
-                findViewById(R.id.login_layout).setVisibility(View.VISIBLE);
+                loading_layout.setVisibility(View.GONE);
+                header_layout.setVisibility(View.VISIBLE);
+                login_layout.setVisibility(View.VISIBLE);
             }
         }, 3000);
 
@@ -78,7 +79,7 @@ public class Login_Activity extends AppCompatActivity {
         login_function();
     }
 
-    private void login_function(){
+    private void login_function() {
         // Change password
         TextView forgot_pass = findViewById(R.id.forgot_password);
         forgot_pass.setOnClickListener(new View.OnClickListener() {
@@ -104,47 +105,36 @@ public class Login_Activity extends AppCompatActivity {
         login_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                checkField();
+                check_phone_number();
+                check_password();
 
-                if(valid){
-                    fAuth.signInWithEmailAndPassword(phone_num.getText().toString().trim() + "@gmail.com", password.getText().toString()).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
-                        @Override
-                        public void onSuccess(AuthResult authResult) {
-                            Toast.makeText(Login_Activity.this, "Login Success", Toast.LENGTH_SHORT).show();
-                            checkIfAdmin(authResult.getUser().getUid());
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(Login_Activity.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    });
+                if (valid) {
+                    performLogin();
                 }
             }
         });
     }
 
-    private boolean checkField(){
-        if(phone_num.getText().toString().isEmpty()){
-            findViewById(R.id.empty_phone_email).setVisibility(View.VISIBLE);
-            findViewById(R.id.error_phone_log_in).setVisibility(View.VISIBLE);
+    private boolean check_phone_number() {
+        if (phone_num.getText().toString().trim().isEmpty()) {
+            no_phone.setVisibility(View.VISIBLE);
 
             valid = false;
-        }else{
-            findViewById(R.id.empty_phone_email).setVisibility(View.GONE);
-            findViewById(R.id.error_phone_log_in).setVisibility(View.GONE);
+        } else {
+            no_phone.setVisibility(View.GONE);
 
             valid = true;
         }
+        return valid;
+    }
 
-        if(password.getText().toString().isEmpty()){
-            findViewById(R.id.empty_password).setVisibility(View.VISIBLE);
-            findViewById(R.id.error_pass_log_in).setVisibility(View.VISIBLE);
+    private boolean check_password() {
+        if (password.getText().toString().isEmpty()) {
+            no_password.setVisibility(View.VISIBLE);
 
             valid = false;
-        }else{
-            findViewById(R.id.empty_password).setVisibility(View.GONE);
-            findViewById(R.id.error_pass_log_in).setVisibility(View.GONE);
+        } else {
+            no_password.setVisibility(View.GONE);
 
             valid = true;
         }
@@ -152,24 +142,53 @@ public class Login_Activity extends AppCompatActivity {
         return valid;
     }
 
-    // Check if Doctor or Patient
-    private void checkIfAdmin(String uid) {
-        DocumentReference df = fStore.collection("Patient").document(uid);
-        // Extract data from document
-        df.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+    private void performLogin() {
+        AuthAPI authAPI = RetrofitClient.getInstance().create(AuthAPI.class);
+
+        String login_phoneNumber = phone_num.getText().toString().trim();
+        String login_password = password.getText().toString();
+
+        AuthenticationRequest loginRequest = new AuthenticationRequest(login_phoneNumber, login_password);
+
+        authAPI.login(loginRequest).enqueue(new Callback<AuthResponse>() {
             @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                Log.d("TAG", "onSuccess" + documentSnapshot.getData());
-                // Identify user
-                if(documentSnapshot.getString("isDoctor") != null){
-                    // User is admin
-                    startActivity(new Intent(getApplicationContext(), Doctor_Dashboard.class));
-                    finish();
+            public void onResponse(Call<AuthResponse> call, Response<AuthResponse> response) {
+                if (response.isSuccessful() && response.body() != null) {
+
+                    String token = response.body().getToken();
+                    String role = response.body().getRole();
+
+                    int userId = response.body().getUserId();
+                    String userName = response.body().getUserName();
+
+                    // Save session using SharedPreferences
+                    SessionManager.getInstance(Login_Activity.this).saveSession(token, userId, userName, role);
+
+                    Toast.makeText(Login_Activity.this, "Login successful", Toast.LENGTH_SHORT).show();
+
+                    if ("DOCTOR".equals(role)) {
+                        Intent i = new Intent(Login_Activity.this, Doctor_Dashboard.class);
+                        startActivity(i);
+                        finish();
+                    } else if ("PATIENT".equals(role)) {
+                        Intent i = new Intent(Login_Activity.this, Patient_Dashboard.class);
+                        startActivity(i);
+                        finish();
+                    } else {
+                        Toast.makeText(Login_Activity.this, "Unknown role", Toast.LENGTH_SHORT).show();
+                    }
+
+
+                } else {
+                    wrong_password.setVisibility(View.VISIBLE);
+                    Toast.makeText(Login_Activity.this, "Invalid credentials", Toast.LENGTH_SHORT).show();
                 }
-                if (documentSnapshot.getString("isPatient") != null){
-                    startActivity(new Intent(getApplicationContext(), Patient_Dashboard.class));
-                    finish();
-                }
+            }
+
+            @Override
+            public void onFailure(Call<AuthResponse> call, Throwable t) {
+                Toast.makeText(Login_Activity.this, "Login failed", Toast.LENGTH_SHORT).show();
+                Log.e("Login","Login failed: " + t.getMessage(), t);
             }
         });
     }

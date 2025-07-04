@@ -1,40 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    app:cardBackgroundColor="#FFFFFF"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="2dp"
+    android:background="@drawable/notification_selector"
+    android:contentDescription="Notification"
+    android:importantForAccessibility="yes">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_margin="6dp"
-        android:background="@drawable/rounded_bg">
+        android:padding="12dp">
 
+        <!-- Icon -->
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:background="@drawable/notification_icon"
+            android:backgroundTint="#26A69A"
+            android:contentDescription="Notification icon"
+            android:layout_gravity="center_vertical" />
+
+        <!-- Text Content -->
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:orientation="vertical"
-            android:padding="10dp">
+            android:layout_marginStart="8dp">
 
             <TextView
                 android:id="@+id/notification_header"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Notification 1"
-                android:textColor="@color/black"
+                android:textColor="#37474F"
                 android:textStyle="bold"
-                android:textSize="22sp"/>
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/notification_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 android:text="Notification information"
-                android:textColor="@color/black"
-                android:textSize="18sp"/>
+                android:textColor="#37474F"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/notification_timestamp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="5 min ago"
+                android:textColor="#78909C"
+                android:textSize="14sp" />
 
         </LinearLayout>
 
     </LinearLayout>
-
-</LinearLayout>
+</androidx.cardview.widget.CardView>

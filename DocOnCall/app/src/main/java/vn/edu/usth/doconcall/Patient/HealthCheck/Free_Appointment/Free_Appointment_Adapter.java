@@ -45,6 +45,7 @@ public class Free_Appointment_Adapter extends RecyclerView.Adapter<Free_Appointm
             holder.timeTextView.setTextColor(ContextCompat.getColor(context, R.color.white));
         } else {
             holder.timeTextView.setBackgroundColor(Color.parseColor("#E2FFFC")); // Default color
+            holder.timeTextView.setTextColor(ContextCompat.getColor(context, R.color.black));
         }
 
         holder.timeTextView.setOnClickListener(new View.OnClickListener() {
@@ -56,6 +57,7 @@ public class Free_Appointment_Adapter extends RecyclerView.Adapter<Free_Appointm
                 if (listener != null) {
                     listener.onItemClick(item.getTime());
                 }
+
             }
         });
     }

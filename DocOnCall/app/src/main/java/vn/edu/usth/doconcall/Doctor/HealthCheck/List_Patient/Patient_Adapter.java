@@ -40,7 +40,6 @@ public class Patient_Adapter extends RecyclerView.Adapter<Patient_ViewHolder> {
 
         holder.name.setText(items.get(position).getName());
         holder.gender.setText(items.get(position).getGender());
-        holder.phone_number.setText(items.get(position).getPhone_number());
         holder.dob.setText(items.get(position).getDob());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -51,9 +50,9 @@ public class Patient_Adapter extends RecyclerView.Adapter<Patient_ViewHolder> {
 
                 // Pass data using Bundle
                 Bundle bundle = new Bundle();
+                bundle.putInt("Patient Id", item.getId());
                 bundle.putString("Patient Name", item.getName());
                 bundle.putString("Patient Gender", item.getGender());
-                bundle.putString("Patient Phone Number", item.getPhone_number());
                 bundle.putString("Patient Dob", item.getDob());
 
                 selectedFragment.setArguments(bundle);

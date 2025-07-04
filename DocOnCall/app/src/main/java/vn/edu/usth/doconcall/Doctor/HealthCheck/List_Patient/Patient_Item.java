@@ -2,16 +2,24 @@ package vn.edu.usth.doconcall.Doctor.HealthCheck.List_Patient;
 
 public class Patient_Item {
 
+    int id;
     String name;
     String gender;
-    String phone_number;
     String dob;
 
-    public Patient_Item(String name, String gender, String phone_number, String dob){
+    public Patient_Item(int id, String name, String gender, String dob){
+        this.id = id;
         this.name = name;
         this.gender = gender;
-        this.phone_number = phone_number;
         this.dob = dob;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public void setGender(String gender) {
@@ -22,20 +30,12 @@ public class Patient_Item {
         this.name = name;
     }
 
-    public void setPhone_number(String phone_number) {
-        this.phone_number = phone_number;
-    }
-
     public String getGender() {
         return gender;
     }
 
     public String getName() {
         return name;
-    }
-
-    public String getPhone_number() {
-        return phone_number;
     }
 
     public void setDob(String dob) {

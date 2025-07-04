@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:orientation="vertical"
     tools:context=".Patient.Profile.Edit_Patient_Profile">
 
@@ -12,170 +13,248 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <!-- Patient Profile -->
-        <RelativeLayout
+        <!-- Top Header -->
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:background="@color/header_color">
 
             <ImageButton
                 android:id="@+id/back_button"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_alignParentStart="true"
-                android:layout_centerVertical="true"
-                android:layout_marginStart="20dp"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginStart="16dp"
                 android:background="@drawable/backward"
-                android:backgroundTint="@color/white"/>
+                android:backgroundTint="#FFFFFF"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:gravity="center"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
                 android:text="Edit Profile"
-                android:textColor="@color/white"
-                android:textSize="23sp"
-                android:textStyle="bold"/>
-
-        </RelativeLayout>
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/back_button"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scrollbars="none">
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:scrollbars="none"
+            android:paddingBottom="16dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="12dp">
 
-                <!-- Information -->
+                <!-- Avatar -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/avatar_card"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_gravity="center"
+                    app:cardCornerRadius="40dp"
+                    app:cardElevation="2dp">
+
+                    <ImageView
+                        android:id="@+id/profile_avatar"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/profile"
+                        android:scaleType="centerCrop"/>
+                </androidx.cardview.widget.CardView>
+
+                <!-- Profile Form -->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="12dp"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="2dp"
+                    app:cardBackgroundColor="#FFFFFF">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="12dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical">
+
+                            <ImageView
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:background="@drawable/profile"
+                                android:backgroundTint="#26A69A"/>
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Edit Profile Details"
+                                android:textStyle="bold"
+                                android:textSize="20sp"
+                                android:textColor="#37474F"
+                                android:layout_marginStart="8dp" />
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"
+                            android:background="#E8ECEF"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginBottom="8dp" />
+
+                        <!-- Name -->
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/name_input_layout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            android:hint="Name"
+                            app:hintTextColor="#78909C"
+                            app:boxStrokeColor="#E8ECEF"
+                            android:layout_marginBottom="8dp">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/edittext_patient_name"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                style="@style/CustomEditTextStyle"
+                                android:inputType="text"
+                                android:textColor="#37474F"/>
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <!-- Gender -->
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Gender"
+                            android:textStyle="bold"
+                            android:textSize="18sp"
+                            android:textColor="#37474F"
+                            android:layout_marginBottom="8dp"/>
+
+                        <LinearLayout
+                            android:id="@+id/gender_checkbox_group"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginBottom="8dp">
+
+                            <CheckBox
+                                android:id="@+id/checkbox_male"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Male"
+                                android:textColor="#37474F"
+                                android:textSize="16sp"
+                                android:layout_marginEnd="20dp"/>
+
+                            <CheckBox
+                                android:id="@+id/checkbox_female"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Female"
+                                android:textColor="#37474F"
+                                android:textSize="16sp"/>
+                        </LinearLayout>
+
+                        <!-- Date of Birth -->
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/dob_input_layout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            android:hint="Date of Birth"
+                            app:hintTextColor="#78909C"
+                            app:boxStrokeColor="#E8ECEF"
+                            android:layout_marginBottom="8dp">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:weightSum="3">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/edit_day"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:hint="DD"
+                                    android:inputType="number"
+                                    style="@style/CustomEditTextStyle" />
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/edit_month"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:hint="MM"
+                                    android:inputType="number"
+                                    style="@style/CustomEditTextStyle" />
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/edit_year"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:hint="YYYY"
+                                    android:inputType="number"
+                                    style="@style/CustomEditTextStyle" />
+                            </LinearLayout>
+                        </com.google.android.material.textfield.TextInputLayout>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <!-- Error Message -->
+                <TextView
+                    android:id="@+id/error_message"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Please fill all required fields correctly"
+                    android:textSize="14sp"
+                    android:textColor="#EF5350"
+                    android:padding="12dp"
+                    android:visibility="gone"/>
+
+                <!-- Save Button -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:layout_margin="10dp">
-
-                    <ImageView
-                        android:layout_width="150dp"
-                        android:layout_height="150dp"
-                        android:layout_margin="30dp"
-                        android:scaleType="centerCrop"
-                        android:adjustViewBounds="true"
-                        android:background="@drawable/round_doctor_list"/>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginTop="30dp"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Name: Patient"
-                            android:textSize="20sp"
-                            android:textColor="@color/black"
-                            android:textStyle="bold"
-                            android:padding="5dp"/>
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Gender: Male"
-                            android:textSize="18sp"
-                            android:textColor="@color/black"
-                            android:padding="5dp"/>
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="DoB: 01/10/2004"
-                            android:textSize="18sp"
-                            android:textColor="@color/black"
-                            android:padding="5dp"/>
-
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Phone Number: 0971795481"
-                            android:textSize="18sp"
-                            android:textColor="@color/black"
-                            android:padding="5dp"/>
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-                <!-- Year Experience -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Medical History:"
-                        android:textStyle="bold"
-                        android:textSize="20sp"
-                        android:textColor="@color/black"
-                        android:paddingTop="8dp"
-                        android:paddingBottom="4dp"
-                        android:paddingStart="12dp"
-                        android:paddingEnd="12dp"/>
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="- ADHD (Diagnosed in 2018)\n- Broken left leg (Accident - 2020)\n- Mild anxiety disorder"
-                        android:textSize="16sp"
-                        android:padding="12dp"/>
-
-                </LinearLayout>
-
-                <!-- Buttons Section -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="16dp"
-                    android:orientation="vertical"
                     android:gravity="center"
-                    android:weightSum="3">
+                    android:layout_margin="12dp">
 
-                    <!-- Edit Button -->
                     <Button
-                        android:layout_width="200dp"
-                        android:layout_height="wrap_content"
-                        android:text="Edit Profile"
-                        android:padding="12dp"
-                        android:backgroundTint="@color/black"
-                        android:textColor="@color/white"
-                        android:gravity="center"
-                        />
-
-                    <!-- Survey Button -->
-                    <Button
-                        android:layout_width="200dp"
-                        android:layout_height="wrap_content"
-                        android:text="Medical History"
-                        android:padding="12dp"
-                        android:backgroundTint="@color/black"
-                        android:textColor="@color/white"
-                        android:gravity="center"
-                        android:visibility="visible"/>
-
+                        android:id="@+id/save_patient_profile_button"
+                        android:layout_width="0dp"
+                        android:layout_height="48dp"
+                        android:layout_weight="1"
+                        android:text="Save"
+                        android:backgroundTint="@color/accent_color"
+                        android:textColor="#FFFFFF"
+                        android:textSize="16sp"/>
                 </LinearLayout>
-
-
             </LinearLayout>
-
         </ScrollView>
-
     </LinearLayout>
 
 </LinearLayout>

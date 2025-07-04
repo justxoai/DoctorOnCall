@@ -13,6 +13,8 @@
         android:layout_height="match_parent">
 
         <!-- Header -->
+
+        <!-- Body Content -->
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="60dp"
@@ -27,20 +29,19 @@
                 android:layout_centerVertical="true"
                 android:layout_marginStart="20dp"
                 android:background="@drawable/side_navigator"
-                android:backgroundTint="@color/white"/>
+                android:backgroundTint="@color/white" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:text="Health Check"
+                android:text="Doctor Booking"
                 android:textColor="@android:color/white"
                 android:textSize="23sp"
                 android:textStyle="bold" />
 
         </RelativeLayout>
 
-        <!-- Body Content -->
         <RelativeLayout
             android:id="@+id/body_layout"
             android:layout_width="match_parent"
@@ -53,8 +54,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:text="Start a health check with your doctor"
-                android:textSize="22sp"
+                android:text="Book an appointment with doctor!"
+                android:textSize="20sp"
                 android:textColor="@android:color/black"
                 android:textStyle="bold"
                 android:layout_marginBottom="16dp" />
@@ -67,243 +68,311 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="16dp"
                 android:text="Start"
-                android:backgroundTint="@android:color/black"
+                android:backgroundTint="@color/accent_color"
                 android:textColor="@android:color/white" />
 
         </RelativeLayout>
 
     </RelativeLayout>
 
-    <!--- Side Navigator -->
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/home_nav"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="start">
+        android:layout_gravity="start"
+        android:background="#FFFFFF">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
+            <!-- Header -->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_height="120dp"
+                android:background="#26A69A"
+                android:orientation="vertical"
+                android:gravity="center">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="150dp"
-                    android:background="@color/side_nav_color_primary"
-                    android:orientation="vertical">
+                <androidx.cardview.widget.CardView
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="16dp"
+                    app:cardCornerRadius="30dp"
+                    app:cardBackgroundColor="#26A69A">
 
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="55dp"
-                        android:layout_height="55dp"
+                    <ImageButton
+                        android:id="@+id/avatar_profile"
+                        android:layout_width="56dp"
+                        android:layout_height="56dp"
                         android:layout_gravity="center"
-                        android:layout_marginTop="20dp"
-                        app:cardCornerRadius="50dp">
+                        android:background="@drawable/profile"
+                        android:scaleType="centerCrop"
+                        android:backgroundTint="#FFFFFF" />
 
-                        <ImageButton
-                            android:id="@+id/avatar_profile"
-                            android:layout_width="55dp"
-                            android:layout_height="55dp"
-                            android:background="@drawable/profile"
-                            android:scaleType="centerCrop"/>
+                </androidx.cardview.widget.CardView>
 
-                    </androidx.cardview.widget.CardView>
-
-                    <TextView
-                        android:id="@+id/welcome_message"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Hi, Doctor"
-                        android:textColor="@color/white"
-                        android:textSize="20sp"
-                        android:gravity="center"
-                        android:layout_marginTop="10dp"/>
-
-                </LinearLayout>
-
-                <!-- Task (?) -->
-                <LinearLayout
+                <TextView
+                    android:id="@+id/welcome_message"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:background="@color/side_nav_color_second">
-
-                    <LinearLayout
-                        android:id="@+id/to_dashboard_page"
-                        android:layout_width="match_parent"
-                        android:layout_height="70dp"
-                        android:orientation="horizontal">
-
-                        <ImageView
-                            android:layout_width="25dp"
-                            android:layout_height="25dp"
-                            android:layout_gravity="center_vertical"
-                            android:src="@drawable/home_icon"
-                            android:layout_marginLeft="25dp"/>
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:text="Dashboard"
-                            android:textColor="@color/black"
-                            android:textSize="20sp"
-                            android:gravity="center"/>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="@color/black"/>
-
-                    <LinearLayout
-                        android:id="@+id/to_schedule_page"
-                        android:layout_width="match_parent"
-                        android:layout_height="70dp"
-                        android:orientation="horizontal">
-
-                        <ImageView
-                            android:layout_width="25dp"
-                            android:layout_height="25dp"
-                            android:layout_gravity="center_vertical"
-                            android:src="@drawable/schedule"
-                            android:layout_marginLeft="25dp"/>
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:text="Schedule"
-                            android:textColor="@color/black"
-                            android:textSize="20sp"
-                            android:gravity="center"/>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="@color/black"/>
-
-                    <LinearLayout
-                        android:id="@+id/to_health_check_page"
-                        android:layout_width="match_parent"
-                        android:layout_height="70dp"
-                        android:orientation="horizontal">
-
-                        <ImageView
-                            android:layout_width="25dp"
-                            android:layout_height="25dp"
-                            android:layout_gravity="center_vertical"
-                            android:src="@drawable/heathcheck"
-                            android:layout_marginLeft="25dp"/>
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:text="HealthCheck"
-                            android:textColor="@color/black"
-                            android:textSize="20sp"
-                            android:gravity="center"/>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="@color/black"/>
-
-                    <LinearLayout
-                        android:id="@+id/to_doctor_list_page"
-                        android:layout_width="match_parent"
-                        android:layout_height="70dp"
-                        android:orientation="horizontal">
-
-                        <ImageView
-                            android:layout_width="25dp"
-                            android:layout_height="25dp"
-                            android:layout_gravity="center_vertical"
-                            android:src="@drawable/doctor_list"
-                            android:layout_marginLeft="25dp"/>
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:text="Consult Doctor"
-                            android:textColor="@color/black"
-                            android:textSize="20sp"
-                            android:gravity="center"/>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="@color/black"/>
-
-                    <LinearLayout
-                        android:id="@+id/to_profile_page"
-                        android:layout_width="match_parent"
-                        android:layout_height="70dp"
-                        android:orientation="horizontal">
-
-                        <ImageView
-                            android:layout_width="25dp"
-                            android:layout_height="25dp"
-                            android:layout_gravity="center_vertical"
-                            android:src="@drawable/profile"
-                            android:layout_marginLeft="25dp"/>
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:text="Profile"
-                            android:textColor="@color/black"
-                            android:textSize="20sp"
-                            android:gravity="center"/>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="@color/black"/>
-
-                    <LinearLayout
-                        android:id="@+id/to_log_out"
-                        android:layout_width="match_parent"
-                        android:layout_height="70dp"
-                        android:orientation="horizontal">
-
-                        <ImageView
-                            android:layout_width="25dp"
-                            android:layout_height="25dp"
-                            android:layout_gravity="center_vertical"
-                            android:src="@drawable/logout"
-                            android:layout_marginLeft="25dp"/>
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:text="Log out"
-                            android:textColor="@color/black"
-                            android:textSize="20sp"
-                            android:gravity="center"/>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="@color/black"/>
-
-                </LinearLayout>
+                    android:layout_height="wrap_content"
+                    android:text="Hi, Patient"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp"
+                    android:gravity="center"
+                    android:padding="8dp"/>
 
             </LinearLayout>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            <!-- Divider -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="#E8ECEF" />
+
+            <!-- Menu Items -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:background="#FFFFFF">
+
+                <LinearLayout
+                    android:id="@+id/to_dashboard_page"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:orientation="horizontal"
+                    android:padding="12dp"
+                    android:background="@drawable/menu_item_selector">
+
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/home_icon"
+                        android:backgroundTint="#26A69A"
+                        android:layout_marginStart="16dp" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="Dashboard"
+                        android:textColor="#37474F"
+                        android:textSize="18sp"
+                        android:gravity="start|center_vertical"
+                        android:layout_marginStart="16dp" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="#E8ECEF" />
+
+                <LinearLayout
+                    android:id="@+id/to_schedule_page"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:orientation="horizontal"
+                    android:padding="12dp"
+                    android:background="@drawable/menu_item_selector">
+
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/schedule"
+                        android:backgroundTint="#26A69A"
+                        android:layout_marginStart="16dp" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="Timetable"
+                        android:textColor="#37474F"
+                        android:textSize="18sp"
+                        android:gravity="start|center_vertical"
+                        android:layout_marginStart="16dp" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="#E8ECEF" />
+
+                <LinearLayout
+                    android:id="@+id/to_health_check_page"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:orientation="horizontal"
+                    android:padding="12dp"
+                    android:background="@drawable/menu_item_selector">
+
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/heathcheck"
+                        android:backgroundTint="#26A69A"
+                        android:layout_marginStart="16dp" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="Doctor Booking"
+                        android:textColor="#37474F"
+                        android:textSize="18sp"
+                        android:gravity="start|center_vertical"
+                        android:layout_marginStart="16dp" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="#E8ECEF" />
+
+                <LinearLayout
+                    android:id="@+id/to_manage_appointment_page"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:orientation="horizontal"
+                    android:padding="12dp"
+                    android:background="@drawable/menu_item_selector">
+
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/manage_appointment"
+                        android:backgroundTint="#26A69A"
+                        android:layout_marginStart="16dp" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="Appointment"
+                        android:textColor="#37474F"
+                        android:textSize="18sp"
+                        android:gravity="start|center_vertical"
+                        android:layout_marginStart="16dp" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="#E8ECEF" />
+
+                <LinearLayout
+                    android:id="@+id/to_doctor_list_page"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:orientation="horizontal"
+                    android:padding="12dp"
+                    android:background="@drawable/menu_item_selector">
+
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/doctor_list"
+                        android:backgroundTint="#26A69A"
+                        android:layout_marginStart="16dp"/>
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="Consult Doctor"
+                        android:textColor="#37474F"
+                        android:textSize="18sp"
+                        android:gravity="start|center_vertical"
+                        android:layout_marginStart="16dp" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="#E8ECEF" />
+
+                <LinearLayout
+                    android:id="@+id/to_profile_page"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:orientation="horizontal"
+                    android:padding="12dp"
+                    android:background="@drawable/menu_item_selector">
+
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/profile"
+                        android:backgroundTint="#26A69A"
+                        android:layout_marginStart="16dp"/>
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="Profile"
+                        android:textColor="#37474F"
+                        android:textSize="18sp"
+                        android:gravity="start|center_vertical"
+                        android:layout_marginStart="16dp" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="#E8ECEF" />
+
+                <LinearLayout
+                    android:id="@+id/to_log_out"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:orientation="horizontal"
+                    android:padding="12dp"
+                    android:background="@drawable/menu_item_selector">
+
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/logout"
+                        android:backgroundTint="#26A69A"
+                        android:layout_marginStart="16dp"/>
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="Log out"
+                        android:textColor="#37474F"
+                        android:textSize="18sp"
+                        android:gravity="start|center_vertical"
+                        android:layout_marginStart="16dp" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="#E8ECEF" />
+
+            </LinearLayout>
+
+        </LinearLayout>
 
     </com.google.android.material.navigation.NavigationView>
 

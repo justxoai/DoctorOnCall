@@ -11,11 +11,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+import vn.edu.usth.doconcall.Patient.Schedule.Week_Event.Patient_Event;
 import vn.edu.usth.doconcall.R;
+import vn.edu.usth.doconcall.Utils.Calendar_Utils;
 
 public class Patient_Calendar_Adapter extends RecyclerView.Adapter<Patient_Calendar_ViewHolder> {
 
-    private final ArrayList<LocalDate> days;
+    private ArrayList<LocalDate> days;
     private final OnItemListener onItemListener;
 
     public Patient_Calendar_Adapter(ArrayList<LocalDate> days, OnItemListener onItemListener)
@@ -47,13 +49,22 @@ public class Patient_Calendar_Adapter extends RecyclerView.Adapter<Patient_Calen
 
         holder.dayOfMonth.setText(String.valueOf(date.getDayOfMonth()));
 
-        if(date.equals(Patient_Calendar_Utils.selectedDate))
+        if (date.equals(Calendar_Utils.selectedDate)) {
             holder.parentView.setBackgroundColor(Color.LTGRAY);
+        } else {
+            holder.parentView.setBackgroundColor(Color.TRANSPARENT); // reset background
+        }
 
-        if(date.getMonth().equals(Patient_Calendar_Utils.selectedDate.getMonth()))
+        // Default color for the current month is black, and light gray for other months
+        if (date.getMonth().equals(Calendar_Utils.selectedDate.getMonth())) {
             holder.dayOfMonth.setTextColor(Color.BLACK);
-        else
+        } else {
             holder.dayOfMonth.setTextColor(Color.LTGRAY);
+        }
+
+        if (!Patient_Event.eventsForDate(date).isEmpty()) {
+            holder.dayOfMonth.setTextColor(Color.RED); // override color if event exists
+        }
     }
 
     @Override

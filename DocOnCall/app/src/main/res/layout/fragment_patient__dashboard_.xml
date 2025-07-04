@@ -27,7 +27,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_margin="20dp"
             android:orientation="vertical">
 
@@ -57,90 +57,53 @@
 
             <!-- Schedule -->
             <LinearLayout
+                android:id="@+id/schedule_patient_dashboard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:orientation="vertical">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/dayOfWeekTV_patient_dashboard"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="Day: xx"
-                        android:textColor="#000000"
-                        android:textSize="20sp" />
-
-                    <TextView
-                        android:id="@+id/monthYearTV_patient_dashboard"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="MMMM/YYYY"
-                        android:textColor="@color/black"
-                        android:textSize="20sp" />
-
-                </LinearLayout>
-
-                <ListView
-                    android:id="@+id/eventListView_patient_dashboard"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="5" />
-
-
-            </LinearLayout>
-
-            <!-- Health Check Section -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:orientation="vertical">
-
-                <!-- Header -->
                 <TextView
+                    android:id="@+id/monthYearTV_patient_dashboard"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Check your health?"
+                    android:text="MMMM/YYYY"
                     android:textColor="@color/black"
-                    android:textSize="30sp"
-                    android:textStyle="bold" />
+                    android:textSize="20sp" />
 
-                <!-- Last Check Info -->
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:text="Last appoinment: None"
-                    android:textColor="#7A7A7A"
-                    android:textSize="18sp" />
-
-                <!-- Quick Actions -->
                 <LinearLayout
+                    android:id="@+id/text_eventList"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    android:gravity="center"
-                    android:weightSum="2">
+                    android:layout_height="60dp"
+                    android:visibility="visible">
 
-                    <Button
-                        android:id="@+id/health_check_patient_dashboard"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:backgroundTint="@color/black"
-                        android:text="Book Appointment"
-                        android:textColor="@color/white" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="No Appointment Today"
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:gravity="center"
+                        />
 
                 </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/eventRecyclerView_patient_dashboard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"/>
+
+                <Button
+                    android:id="@+id/see_all_events_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="See all appointments"
+                    android:visibility="gone"
+                    android:gravity="center"
+                    android:textColor="@color/white"
+                    android:backgroundTint="@color/black" />
 
             </LinearLayout>
 
@@ -163,7 +126,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="start|center_vertical"
-                        android:text="All Doctors"
+                        android:text="Consult Doctor    "
                         android:textColor="@color/black"
                         android:textSize="18sp"
                         android:textStyle="bold" />
@@ -182,7 +145,9 @@
                     android:id="@+id/recycler_view_doctor_dashboard"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:nestedScrollingEnabled="false" />
+                    android:nestedScrollingEnabled="false"
+                    android:layout_marginBottom="50dp"
+                    android:scrollbars="none"/>
 
             </LinearLayout>
 

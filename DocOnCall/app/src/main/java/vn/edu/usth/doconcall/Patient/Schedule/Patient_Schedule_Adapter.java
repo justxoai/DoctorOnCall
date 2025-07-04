@@ -8,6 +8,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 
 public class Patient_Schedule_Adapter extends FragmentStateAdapter {
+
     public Patient_Schedule_Adapter(@NonNull FragmentManager fragmentManager, @NonNull Lifecycle lifecycle) {
         super(fragmentManager, lifecycle);
     }

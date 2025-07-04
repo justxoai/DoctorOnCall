@@ -40,7 +40,6 @@ public class Select_Doctor_Adapter extends RecyclerView.Adapter<Select_Doctor_Vi
 
         holder.doctor_name.setText(items.get(position).getName());
         holder.doctor_specialization.setText(items.get(position).getSpecialization());
-        holder.doctor_rating.setText(items.get(position).getRating());
         holder.doctor_image.setImageResource(items.get(position).getDoctor_image());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -51,9 +50,9 @@ public class Select_Doctor_Adapter extends RecyclerView.Adapter<Select_Doctor_Vi
 
                 // Pass data using Bundle
                 Bundle bundle = new Bundle();
+                bundle.putInt("Doctor Id", item.getId());
                 bundle.putString("Doctor Name", item.getName());
                 bundle.putString("Doctor Specialization", item.getSpecialization());
-                bundle.putString("Doctor Rating", item.getRating()); // rating is String here
                 bundle.putInt("Doctor Image", item.getDoctor_image());
 
 

@@ -38,7 +38,6 @@ public class Doctor_Adapter extends RecyclerView.Adapter<Doctor_ViewHolder> {
 
         holder.doctor_name.setText(items.get(position).getName());
         holder.doctor_specialization.setText(items.get(position).getSpecialization());
-        holder.doctor_rating.setText(items.get(position).getRating());
         holder.doctor_image.setImageResource(items.get(position).getDoctor_image());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -46,9 +45,9 @@ public class Doctor_Adapter extends RecyclerView.Adapter<Doctor_ViewHolder> {
             public void onClick(View view) {
                 Intent i = new Intent(context, Doctor_Information.class);
 
+                i.putExtra("Doctor Id", item.getId());
                 i.putExtra("Doctor Name", item.getName());
                 i.putExtra("Doctor Specialization", item.getSpecialization());
-                i.putExtra("Doctor Rating", item.getRating());
                 i.putExtra("Doctor Image", item.getDoctor_image());
 
                 context.startActivity(i);

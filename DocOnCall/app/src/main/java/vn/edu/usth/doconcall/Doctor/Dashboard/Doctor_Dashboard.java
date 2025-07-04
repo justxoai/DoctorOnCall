@@ -2,10 +2,12 @@ package vn.edu.usth.doconcall.Doctor.Dashboard;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,27 +16,48 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationBarView;
-import com.google.firebase.auth.FirebaseAuth;
 
+import org.json.JSONObject;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import vn.edu.usth.doconcall.Auth.Login_Activity;
+import vn.edu.usth.doconcall.Doctor.Appointment.DoctorManageAppointment;
 import vn.edu.usth.doconcall.Doctor.Dashboard.Adapter.Doctor_Dashboard_Adapter;
 import vn.edu.usth.doconcall.Doctor.HealthCheck.Doctor_HealthCheck;
 import vn.edu.usth.doconcall.Doctor.Profile.Doctor_Profile;
 import vn.edu.usth.doconcall.Doctor.Schedule.Doctor_Schedule;
+import vn.edu.usth.doconcall.Models.UserDto;
+import vn.edu.usth.doconcall.Network.RetrofitClient;
+import vn.edu.usth.doconcall.Network.SessionManager;
+import vn.edu.usth.doconcall.Network.UserAPI;
 import vn.edu.usth.doconcall.R;
+import vn.edu.usth.doconcall.Utils.LogoutUtils;
 
 public class Doctor_Dashboard extends AppCompatActivity {
 
     private ViewPager2 mViewPager;
     private BottomNavigationView bottomNavigationView;
     private DrawerLayout mDrawLayout;
-    
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_doctor_dashboard);
+
+        String token = SessionManager.getInstance().getToken();
+        boolean isLoggedIn = SessionManager.getInstance().isLoggedIn();
+
+        if (!isLoggedIn || token == null || isTokenExpired(token)) {
+            Intent i = new Intent(Doctor_Dashboard.this, Login_Activity.class);
+            startActivity(i);
+            finish();
+            return;
+        }
 
         // ViewPager: Change Dashboard and Notification Fragment
         mViewPager = findViewById(R.id.doctor_dashboard_view_pager);
@@ -42,7 +65,7 @@ public class Doctor_Dashboard extends AppCompatActivity {
         // Bottom Navigator
         bottomNavigationView = findViewById(R.id.doctor_dashboard_bottom_navigation);
 
-        Doctor_Dashboard_Adapter adapter =new Doctor_Dashboard_Adapter(getSupportFragmentManager(), getLifecycle());
+        Doctor_Dashboard_Adapter adapter = new Doctor_Dashboard_Adapter(getSupportFragmentManager(), getLifecycle());
         mViewPager.setAdapter(adapter);
         mViewPager.setUserInputEnabled(false);
 
@@ -56,8 +79,7 @@ public class Doctor_Dashboard extends AppCompatActivity {
 
             @Override
             public void onPageSelected(int position) {
-                switch (position)
-                {
+                switch (position) {
                     case 0:
                         bottomNavigationView.getMenu().findItem(R.id.dashboard_page).setChecked(true);
                         break;
@@ -108,12 +130,76 @@ public class Doctor_Dashboard extends AppCompatActivity {
 
         // Dashboard Function
         dashboard_function();
+
+        // Fetch user information
+        fetch_user_information();
+    }
+
+    private void fetch_user_information() {
+        SessionManager sessionManager = SessionManager.getInstance();
+
+        String token = sessionManager.getToken();
+        int userId = sessionManager.getUserId();
+
+        if (token != null && !token.isEmpty() && userId != -1) {
+            String authHeader = "Bearer " + token;
+
+            UserAPI userService = RetrofitClient.getInstance().create(UserAPI.class);
+            Call<UserDto> call = userService.getUserById(authHeader, userId);
+
+            call.enqueue(new Callback<UserDto>() {
+                @Override
+                public void onResponse(Call<UserDto> call, Response<UserDto> response) {
+                    if (response.isSuccessful() && response.body() != null) {
+                        UserDto user = response.body();
+                        setTextWelcome(user);
+                    } else {
+                        Log.e("DoctorDashboardSideBar", "Failed: " + response.code());
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<UserDto> call, Throwable t) {
+                    Log.e("DoctorDashboardSideBar", "Error: " + t.getMessage(), t);
+                }
+            });
+        } else {
+            Log.e("DoctorDashboardSideBar", "Missing token or userId");
+        }
+    }
+
+    private void setTextWelcome(UserDto user) {
+        TextView text = findViewById(R.id.welcome_message);
+        text.setText("Hi, " + user.getName());
+    }
+
+    private boolean isTokenExpired(String token) {
+        try {
+            String[] split = token.split("\\.");
+            String payload = split[1];
+            String json = new String(android.util.Base64.decode(payload, android.util.Base64.URL_SAFE));
+            JSONObject jsonObject = new JSONObject(json);
+            long exp = jsonObject.getLong("exp");
+            long currentTime = System.currentTimeMillis() / 1000;
+            return currentTime > exp;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return true; // Treat as expired if error occurs
+        }
     }
 
     private void dashboard_function() {
+        FloatingActionButton fab = findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(Doctor_Dashboard.this, DoctorManageAppointment.class);
+                startActivity(i);
+            }
+        });
     }
 
-    private void side_bar_function(){
+    private void side_bar_function() {
         // Dashboard
         LinearLayout dashboard_page = findViewById(R.id.to_dashboard_page);
         dashboard_page.setOnClickListener(new View.OnClickListener() {
@@ -147,6 +233,16 @@ public class Doctor_Dashboard extends AppCompatActivity {
             }
         });
 
+        // Manage Appointment
+        LinearLayout manage_appointment = findViewById(R.id.to_manage_appointment_page);
+        manage_appointment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(Doctor_Dashboard.this, DoctorManageAppointment.class);
+                startActivity(i);
+            }
+        });
+
         // Profile
         LinearLayout profile_page = findViewById(R.id.to_profile_page);
         profile_page.setOnClickListener(new View.OnClickListener() {
@@ -163,12 +259,8 @@ public class Doctor_Dashboard extends AppCompatActivity {
         log_out.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FirebaseAuth.getInstance().signOut();
-                Intent i = new Intent(Doctor_Dashboard.this, Login_Activity.class);
-                startActivity(i);
-                finish();
+                LogoutUtils.getInstance().logoutUser(Doctor_Dashboard.this);
             }
         });
     }
-
 }

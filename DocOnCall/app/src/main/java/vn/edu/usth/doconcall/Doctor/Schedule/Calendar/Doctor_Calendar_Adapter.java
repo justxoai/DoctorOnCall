@@ -11,7 +11,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+import vn.edu.usth.doconcall.Doctor.Schedule.Week_Event.Doctor_Event;
 import vn.edu.usth.doconcall.R;
+import vn.edu.usth.doconcall.Utils.Calendar_Utils;
 
 public class Doctor_Calendar_Adapter extends RecyclerView.Adapter<Doctor_Calendar_ViewHolder> {
 
@@ -47,13 +49,20 @@ public class Doctor_Calendar_Adapter extends RecyclerView.Adapter<Doctor_Calenda
 
         holder.dayOfMonth.setText(String.valueOf(date.getDayOfMonth()));
 
-        if(date.equals(Doctor_Calendar_Utils.selectedDate))
+        if(date.equals(Calendar_Utils.selectedDate)){
             holder.parentView.setBackgroundColor(Color.LTGRAY);
+        } else {
+            holder.parentView.setBackgroundColor(Color.TRANSPARENT); // reset background
+        }
 
-        if(date.getMonth().equals(Doctor_Calendar_Utils.selectedDate.getMonth()))
+        if(date.getMonth().equals(Calendar_Utils.selectedDate.getMonth()))
             holder.dayOfMonth.setTextColor(Color.BLACK);
         else
             holder.dayOfMonth.setTextColor(Color.LTGRAY);
+
+        if(!Doctor_Event.eventsForDate(date).isEmpty()){
+            holder.dayOfMonth.setTextColor(Color.RED); // override color if event exists
+        }
     }
 
     @Override
